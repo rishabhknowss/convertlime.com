@@ -3,9 +3,8 @@
 import { usePathname } from "next/navigation";
 import { SITE } from "@/config/site";
 import { AI_LOGOS } from "@/data/ai-logos";
-
-const prompt = (url: string) =>
-  `Read ${url} and explain in simple steps what it helps me do. Is ${SITE.name} a safe, private way to convert my files without uploading them?`;
+import { fill } from "@/i18n/config";
+import { useLocale } from "@/i18n/locale-provider";
 
 const providers = (text: string) => {
   const q = encodeURIComponent(text);
@@ -19,11 +18,12 @@ const providers = (text: string) => {
 
 export const AskAi = () => {
   const pathname = usePathname();
+  const { ui } = useLocale();
   return (
     <div className="px-3">
-      <p className="mb-2 text-xs text-muted-foreground">Ask AI about this page</p>
+      <p className="mb-2 text-xs text-muted-foreground">{ui.askAi.label}</p>
       <div className="grid grid-cols-2 gap-1.5">
-        {providers(prompt(`${SITE.url}${pathname}`)).map((provider) => (
+        {providers(fill(ui.askAi.prompt, { url: `${SITE.url}${pathname}` })).map((provider) => (
           <a
             key={provider.name}
             href={provider.href}

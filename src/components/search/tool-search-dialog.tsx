@@ -10,9 +10,8 @@ import {
   CommandItem,
   CommandList,
 } from "@/components/ui/command";
-import { CATEGORIES, toolsByCategory } from "@/data/tools";
-import { toolHeading } from "@/lib/seo";
 import { ToolIcon } from "@/components/tool/tool-icon";
+import { useLocale, useLocalePath } from "@/i18n/locale-provider";
 
 type ToolSearchDialogProps = {
   open: boolean;
@@ -21,30 +20,30 @@ type ToolSearchDialogProps = {
 
 export const ToolSearchDialog = ({ open, onOpenChange }: ToolSearchDialogProps) => {
   const router = useRouter();
+  const { ui, tools, categories } = useLocale();
+  const toPath = useLocalePath();
 
   const go = (slug: string) => {
     onOpenChange(false);
-    router.push(`/${slug}`);
+    router.push(toPath(`/${slug}`));
   };
 
   return (
-    <CommandDialog open={open} onOpenChange={onOpenChange} title="Search tools">
+    <CommandDialog open={open} onOpenChange={onOpenChange} title={ui.search.title}>
       <Command>
-        <CommandInput placeholder="Search tools… e.g. heic to jpg" />
+        <CommandInput placeholder={ui.search.placeholder} />
         <CommandList>
-          <CommandEmpty>No tool found.</CommandEmpty>
-          {CATEGORIES.map((category) => (
+          <CommandEmpty>{ui.search.empty}</CommandEmpty>
+          {categories.map((category) => (
             <CommandGroup key={category.id} heading={category.label}>
-              {toolsByCategory(category.id).map((tool) => (
-                <CommandItem
-                  key={tool.slug}
-                  value={`${toolHeading(tool)} ${tool.keyword}`}
-                  onSelect={() => go(tool.slug)}
-                >
-                  <ToolIcon tool={tool} className="size-4 text-muted-foreground" />
-                  {toolHeading(tool)}
-                </CommandItem>
-              ))}
+              {tools
+                .filter((tool) => tool.category === category.id)
+                .map((tool) => (
+                  <CommandItem key={tool.slug} value={`${tool.heading} ${tool.keyword}`} onSelect={() => go(tool.slug)}>
+                    <ToolIcon category={tool.category} slug={tool.slug} className="size-4 text-muted-foreground" />
+                    {tool.heading}
+                  </CommandItem>
+                ))}
             </CommandGroup>
           ))}
         </CommandList>

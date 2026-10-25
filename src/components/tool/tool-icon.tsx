@@ -1,5 +1,5 @@
-import { FileImage, FileText, Minimize2, Scaling, Smartphone, Globe, Repeat } from "lucide-react";
-import type { Tool } from "@/data/tools";
+import { FileText, Globe, Minimize2, Repeat, Scaling, Smartphone } from "lucide-react";
+import type { CategoryId } from "@/data/tools";
 
 const ICONS = {
   iphone: Smartphone,
@@ -9,9 +9,11 @@ const ICONS = {
   pdf: FileText,
 };
 
-export const ToolIcon = ({ tool, className }: { tool: Tool; className?: string }) => {
-  if (tool.kind === "resize-kb") return <Scaling className={className} />;
-  if (tool.kind === "to-pdf") return <FileText className={className} />;
-  const Icon = ICONS[tool.category] ?? FileImage;
+type ToolIconProps = { category: CategoryId; slug: string; className?: string };
+
+export const ToolIcon = ({ category, slug, className }: ToolIconProps) => {
+  if (slug.startsWith("resize-image-to-")) return <Scaling className={className} />;
+  if (slug.endsWith("-to-pdf")) return <FileText className={className} />;
+  const Icon = ICONS[category];
   return <Icon className={className} />;
 };

@@ -2,13 +2,18 @@ import type { Tool } from "@/data/tools";
 import { FORMATS } from "@/data/formats";
 import type { ToolContent } from "@/lib/content";
 import { toolHeading } from "@/lib/seo";
+import type { Locale } from "@/i18n/config";
+import { getDictionary } from "@/i18n/dictionaries";
 
-export const ToolArticle = ({ tool, content }: { tool: Tool; content: ToolContent }) => {
-  const heading = toolHeading(tool);
+type ToolArticleProps = { tool: Tool; content: ToolContent; locale: Locale };
+
+export const ToolArticle = ({ tool, content, locale }: ToolArticleProps) => {
+  const heading = toolHeading(tool, locale);
+  const text = getDictionary(locale).tool;
   return (
     <article className="mx-auto mt-16 flex max-w-3xl flex-col gap-12 text-[15px] leading-7 text-muted-foreground">
       <section>
-        <h2 className="mb-4 text-xl font-semibold text-foreground">How to use the {heading}</h2>
+        <h2 className="mb-4 text-xl font-semibold text-foreground">{text.howToUse(heading)}</h2>
         <ol className="flex flex-col gap-3">
           {content.steps.map((step, index) => (
             <li key={step} className="flex gap-4">
@@ -23,7 +28,7 @@ export const ToolArticle = ({ tool, content }: { tool: Tool; content: ToolConten
       {content.compare && (
         <section>
           <h2 className="mb-4 text-xl font-semibold text-foreground">
-            {FORMATS[tool.from[0]].label} vs {FORMATS[tool.to].label}
+            {text.versus(FORMATS[tool.from[0]].label, FORMATS[tool.to].label)}
           </h2>
           <div className="overflow-hidden rounded-xl border">
             <table className="w-full text-left text-sm">
@@ -58,7 +63,7 @@ export const ToolArticle = ({ tool, content }: { tool: Tool; content: ToolConten
         </section>
       ))}
       <section>
-        <h2 className="mb-4 text-xl font-semibold text-foreground">{heading} – FAQ</h2>
+        <h2 className="mb-4 text-xl font-semibold text-foreground">{text.faqHeading(heading)}</h2>
         <div className="flex flex-col gap-2">
           {content.faqs.map((faq) => (
             <details key={faq.question} className="group rounded-xl border bg-card px-4 py-3">

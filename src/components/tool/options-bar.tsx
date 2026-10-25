@@ -7,6 +7,7 @@ import { Switch } from "@/components/ui/switch";
 import { Input } from "@/components/ui/input";
 import type { Tool } from "@/data/tools";
 import type { RunOptions } from "@/lib/convert/run";
+import { useLocale } from "@/i18n/locale-provider";
 
 const LOSSY = new Set(["jpg", "jpeg", "webp", "avif"]);
 
@@ -18,6 +19,7 @@ type OptionsBarProps = {
 
 export const OptionsBar = ({ tool, options, onChange }: OptionsBarProps) => {
   const [quality, setQuality] = useState(Math.round(options.quality * 100));
+  const { ui } = useLocale();
   const showQuality =
     (tool.kind === "convert" && LOSSY.has(tool.to)) ||
     (tool.kind === "compress" && !options.targetKb);
@@ -28,7 +30,7 @@ export const OptionsBar = ({ tool, options, onChange }: OptionsBarProps) => {
     <div className="flex flex-wrap items-center gap-x-8 gap-y-4 rounded-xl border bg-card px-4 py-3 text-sm">
       {showQuality && (
         <div className="flex min-w-60 flex-1 items-center gap-4">
-          <Label className="shrink-0">Quality</Label>
+          <Label className="shrink-0">{ui.converter.quality}</Label>
           <Slider
             min={30}
             max={100}
@@ -47,7 +49,7 @@ export const OptionsBar = ({ tool, options, onChange }: OptionsBarProps) => {
             checked={Boolean(options.targetKb)}
             onCheckedChange={(checked) => onChange({ ...options, targetKb: checked ? 200 : undefined })}
           />
-          <Label htmlFor="max-size">Max size</Label>
+          <Label htmlFor="max-size">{ui.converter.maxSize}</Label>
           {options.targetKb && (
             <div className="flex items-center gap-2">
               <Input
@@ -64,7 +66,7 @@ export const OptionsBar = ({ tool, options, onChange }: OptionsBarProps) => {
       )}
       {tool.kind === "to-pdf" && (
         <div className="flex items-center gap-3">
-          <Label>Page size</Label>
+          <Label>{ui.converter.pageSize}</Label>
           {(["fit", "a4"] as const).map((size) => (
             <button
               key={size}
@@ -72,7 +74,7 @@ export const OptionsBar = ({ tool, options, onChange }: OptionsBarProps) => {
               onClick={() => onChange({ ...options, pageSize: size })}
               className={`rounded-lg border px-3 py-1.5 ${options.pageSize === size ? "border-primary bg-accent text-foreground" : "text-muted-foreground hover:text-foreground"}`}
             >
-              {size === "fit" ? "Same as image" : "A4"}
+              {size === "fit" ? ui.converter.sameAsImage : ui.converter.a4}
             </button>
           ))}
         </div>

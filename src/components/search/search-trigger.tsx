@@ -3,11 +3,13 @@
 import { Search } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useToolSearch } from "@/components/search/search-provider";
+import { useLocale } from "@/i18n/locale-provider";
 
 type SearchTriggerProps = { size?: "sm" | "lg"; className?: string };
 
 export const SearchTrigger = ({ size = "sm", className }: SearchTriggerProps) => {
   const { open } = useToolSearch();
+  const { ui } = useLocale();
   return (
     <button
       type="button"
@@ -19,7 +21,7 @@ export const SearchTrigger = ({ size = "sm", className }: SearchTriggerProps) =>
       )}
     >
       <Search className={size === "lg" ? "size-5" : "size-4"} />
-      <span className="flex-1">Search tools</span>
+      <span className="flex-1">{ui.search.trigger}</span>
       <kbd className="rounded-md border px-1.5 py-0.5 font-mono text-[11px]">Ctrl K</kbd>
     </button>
   );

@@ -9,19 +9,23 @@ import { Dropzone } from "@/components/tool/dropzone";
 import { FileRow } from "@/components/tool/file-row";
 import { OptionsBar } from "@/components/tool/options-bar";
 import { FORMATS } from "@/data/formats";
+import { fill } from "@/i18n/config";
+import { useLocale } from "@/i18n/locale-provider";
 
 export const Converter = ({ slug }: { slug: string }) => {
   const tool = getTool(slug)!;
-  const converter = useConverter(tool);
+  const { ui } = useLocale();
+  const text = ui.converter;
+  const converter = useConverter(tool, text);
   const { items } = converter;
-  const fromLabel = tool.from.length > 2 ? "images" : `${FORMATS[tool.from[0]].label} files`;
+  const fromLabel = tool.from.length > 2 ? text.images : fill(text.files, { format: FORMATS[tool.from[0]].label });
   const doneCount = items.filter((item) => item.output).length;
 
   return (
     <div className="flex flex-col gap-4">
       <Dropzone
         accept={formatAccept(tool.from)}
-        label={items.length ? `Add more ${fromLabel}` : `Choose ${fromLabel}`}
+        label={fill(items.length ? text.addMore : text.choose, { files: fromLabel })}
         compact={items.length > 0}
         onFiles={converter.addFiles}
       />
@@ -37,17 +41,17 @@ export const Converter = ({ slug }: { slug: string }) => {
             {tool.kind === "to-pdf" ? (
               <Button size="lg" onClick={converter.makePdf} disabled={converter.busy}>
                 {converter.busy ? <Loader2 className="animate-spin" /> : <FileText />}
-                Download PDF ({items.length} {items.length === 1 ? "page" : "pages"})
+                {fill(text.downloadPdf, { count: items.length, pages: items.length === 1 ? text.page : text.pages })}
               </Button>
             ) : (
               <Button size="lg" onClick={converter.downloadAll} disabled={!doneCount || converter.busy}>
                 {converter.busy ? <Loader2 className="animate-spin" /> : <Download />}
-                {doneCount > 1 ? `Download all (${doneCount}) as ZIP` : "Download"}
+                {doneCount > 1 ? fill(text.downloadAll, { count: doneCount }) : text.download}
               </Button>
             )}
             <Button size="lg" variant="ghost" onClick={converter.clear}>
               <Trash2 />
-              Clear
+              {text.clear}
             </Button>
           </div>
         </>

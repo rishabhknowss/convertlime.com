@@ -1,5 +1,6 @@
 import { MobileNav } from "@/components/layout/mobile-nav";
 import { ThemeToggle } from "@/components/layout/theme-toggle";
+import { LanguageSwitcher } from "@/components/layout/language-switcher";
 import { Logo } from "@/components/layout/logo";
 
 export const Topbar = ({ title }: { title: string }) => (
@@ -8,8 +9,9 @@ export const Topbar = ({ title }: { title: string }) => (
     <div className="lg:hidden">
       <Logo />
     </div>
-    <span className="hidden text-sm font-medium lg:block">{title}</span>
-    <div className="ml-auto">
+    <span className="hidden truncate text-sm font-medium lg:block">{title}</span>
+    <div className="ml-auto flex items-center gap-1">
+      <LanguageSwitcher />
       <ThemeToggle />
     </div>
   </header>

@@ -8,9 +8,9 @@ const Mark = ({ size }: { size: number }) => (
   </svg>
 );
 
-type OgCardProps = { heading: string; subheading: string; footer: string };
+type OgCardProps = { heading: string; subheading: string; footer: string; fontFamily: string };
 
-export const OgCard = ({ heading, subheading, footer }: OgCardProps) => (
+export const OgCard = ({ heading, subheading, footer, fontFamily }: OgCardProps) => (
   <div
     style={{
       width: "100%",
@@ -21,23 +21,23 @@ export const OgCard = ({ heading, subheading, footer }: OgCardProps) => (
       background: "#182018",
       color: "#F4F6EF",
       padding: "64px 72px",
-      fontFamily: "sans-serif",
+      fontFamily,
     }}
   >
     <div style={{ display: "flex", alignItems: "center", gap: 18 }}>
       <Mark size={56} />
-      <span style={{ fontSize: 38, fontWeight: 700 }}>ConvertLime</span>
+      <span style={{ fontSize: 38, fontWeight: 800 }}>ConvertLime</span>
     </div>
     <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
       <div style={{ display: "flex", flexDirection: "column", maxWidth: 760 }}>
-        <span style={{ fontSize: heading.length > 32 ? 60 : 84, fontWeight: 800, lineHeight: 1.08, letterSpacing: -2 }}>
+        <span style={{ fontSize: heading.length > 26 ? 58 : 80, fontWeight: 800, lineHeight: 1.12, letterSpacing: -1 }}>
           {heading}
         </span>
-        <span style={{ fontSize: 34, color: "#B9F34B", marginTop: 24 }}>{subheading}</span>
+        <span style={{ fontSize: 34, fontWeight: 500, color: "#B9F34B", marginTop: 24 }}>{subheading}</span>
       </div>
-      <Mark size={260} />
+      <Mark size={240} />
     </div>
-    <div style={{ display: "flex", justifyContent: "space-between", fontSize: 26, color: "#A8B0A0" }}>
+    <div style={{ display: "flex", justifyContent: "space-between", fontSize: 26, fontWeight: 500, color: "#A8B0A0" }}>
       <span>{footer}</span>
       <span>convertlime.com</span>
     </div>

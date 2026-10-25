@@ -2,7 +2,8 @@ import { SITE } from "@/config/site";
 import { CATEGORIES, toolsByCategory } from "@/data/tools";
 import { getPosts } from "@/lib/blog";
 import { toolContent } from "@/lib/content";
-import { toolDescription, toolHeading } from "@/lib/seo";
+import { pageUrl, toolDescription, toolHeading } from "@/lib/seo";
+import { LOCALES, LOCALE_META } from "@/i18n/config";
 
 const intro = () => [
   `# ${SITE.name}`,
@@ -20,11 +21,12 @@ export const llmsIndex = () => {
   for (const category of CATEGORIES) {
     lines.push(`## ${category.label}`, "");
     for (const tool of toolsByCategory(category.id))
-      lines.push(`- [${toolHeading(tool)}](${SITE.url}/${tool.slug}): ${toolDescription(tool)}`);
+      lines.push(`- [${toolHeading(tool, "en")}](${SITE.url}/${tool.slug}): ${toolDescription(tool, "en")}`);
     lines.push("");
   }
   lines.push("## Guides", "");
-  for (const post of getPosts()) lines.push(`- [${post.title}](${SITE.url}/blog/${post.slug}): ${post.description}`);
+  for (const post of getPosts("en")) lines.push(`- [${post.title}](${SITE.url}/blog/${post.slug}): ${post.description}`);
+  lines.push("", "## Languages", "", ...LOCALES.map((locale) => `- ${LOCALE_META[locale].name}: ${pageUrl(locale, "/")}`));
   lines.push("", "## Optional", "", `- [Full text for AI assistants](${SITE.url}/llms-full.txt)`, `- [Privacy](${SITE.url}/privacy)`, `- [About](${SITE.url}/about)`, "");
   return lines.join("\n");
 };
@@ -33,14 +35,14 @@ export const llmsFull = () => {
   const lines = intro();
   for (const category of CATEGORIES) {
     for (const tool of toolsByCategory(category.id)) {
-      const content = toolContent(tool);
-      lines.push(`## ${toolHeading(tool)}`, "", `URL: ${SITE.url}/${tool.slug}`, "", toolDescription(tool), "");
+      const content = toolContent(tool, "en");
+      lines.push(`## ${toolHeading(tool, "en")}`, "", `URL: ${SITE.url}/${tool.slug}`, "", toolDescription(tool, "en"), "");
       content.steps.forEach((step, index) => lines.push(`${index + 1}. ${step}`));
       lines.push("");
       for (const faq of content.faqs) lines.push(`Q: ${faq.question}`, `A: ${faq.answer}`, "");
     }
   }
-  for (const post of getPosts()) {
+  for (const post of getPosts("en")) {
     lines.push(`## ${post.title}`, "", `URL: ${SITE.url}/blog/${post.slug}`, "", post.description, "");
     for (const faq of post.faqs) lines.push(`Q: ${faq.question}`, `A: ${faq.answer}`, "");
   }

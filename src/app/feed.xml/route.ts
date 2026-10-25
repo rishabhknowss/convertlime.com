@@ -7,7 +7,7 @@ const escape = (text: string) =>
   text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 
 export const GET = () => {
-  const posts = getPosts();
+  const posts = getPosts("en");
   const items = posts
     .map(
       (post) => `    <item>

@@ -1,9 +1,9 @@
 import type { BlogFaq } from "@/lib/blog";
 
-export const PostFaq = ({ faqs }: { faqs: BlogFaq[] }) =>
+export const PostFaq = ({ faqs, title }: { faqs: BlogFaq[]; title: string }) =>
   faqs.length ? (
     <section className="mt-14">
-      <h2 className="mb-4 text-2xl font-semibold">Frequently asked questions</h2>
+      <h2 className="mb-4 text-2xl font-semibold">{title}</h2>
       <div className="flex flex-col gap-2">
         {faqs.map((faq) => (
           <details key={faq.question} className="rounded-xl border bg-card px-4 py-3">

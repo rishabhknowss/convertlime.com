@@ -4,6 +4,7 @@ import { useCallback, useRef, useState } from "react";
 import type { Tool } from "@/data/tools";
 import { runOnFile, runToPdf, type Output, type RunOptions } from "@/lib/convert/run";
 import { downloadBlob, zipBlobs } from "@/lib/files";
+import type { UiStrings } from "@/i18n/types";
 
 export type ItemStatus = "queued" | "working" | "done" | "error";
 
@@ -15,10 +16,14 @@ export type Item = {
   error?: string;
 };
 
-const errorMessage = (error: unknown) =>
-  error instanceof Error ? error.message : "This file could not be converted.";
+const errorMessage = (error: unknown, text: UiStrings["converter"]) => {
+  const message = error instanceof Error ? error.message : "";
+  if (/webp/i.test(message)) return text.webpError;
+  if (/avif/i.test(message)) return text.avifError;
+  return text.readError;
+};
 
-export const useConverter = (tool: Tool) => {
+export const useConverter = (tool: Tool, text: UiStrings["converter"]) => {
   const [items, setItems] = useState<Item[]>([]);
   const [pdf, setPdf] = useState<Output | null>(null);
   const [busy, setBusy] = useState(false);
@@ -40,11 +45,11 @@ export const useConverter = (tool: Tool) => {
           const output = await runOnFile(tool, item.file, runOptions);
           update(item.id, { status: "done", output });
         } catch (error) {
-          update(item.id, { status: "error", error: errorMessage(error) });
+          update(item.id, { status: "error", error: errorMessage(error, text) });
         }
       });
     },
-    [tool],
+    [tool, text],
   );
 
   const addFiles = (files: File[]) => {
