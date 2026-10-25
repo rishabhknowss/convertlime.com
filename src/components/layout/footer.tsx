@@ -4,6 +4,7 @@ import { TOOLS } from "@/data/tools";
 import { toolHeading } from "@/lib/seo";
 import { localePath, type Locale } from "@/i18n/config";
 import { getDictionary } from "@/i18n/dictionaries";
+import { FeaturedBadges } from "@/components/layout/featured-badges";
 
 export const Footer = ({ locale }: { locale: Locale }) => {
   const { ui } = getDictionary(locale);
@@ -24,6 +25,7 @@ export const Footer = ({ locale }: { locale: Locale }) => {
           </Link>
         ))}
       </div>
+      <FeaturedBadges />
       <div className="mx-auto mt-8 flex max-w-5xl flex-wrap items-center justify-between gap-3 border-t pt-6 text-xs">
         <span>
           © {SITE.name}. {ui.nav.footerNote}

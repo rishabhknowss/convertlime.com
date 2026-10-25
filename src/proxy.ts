@@ -72,7 +72,8 @@ const languageLocale = (request: NextRequest) => {
 const preferredLocale = (request: NextRequest): Locale => {
   const saved = request.cookies.get(LOCALE_COOKIE)?.value;
   if (saved && isLocale(saved)) return saved;
-  return countryLocale(request) ?? languageLocale(request) ?? DEFAULT_LOCALE;
+  if (!request.headers.get("accept-language")) return DEFAULT_LOCALE;
+  return languageLocale(request) ?? countryLocale(request) ?? DEFAULT_LOCALE;
 };
 
 export const proxy = (request: NextRequest) => {
