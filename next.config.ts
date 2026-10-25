@@ -1,6 +1,11 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  experimental: {
+    // Keep image prerendering within the memory available on hosted builders.
+    cpus: 2,
+    staticGenerationMaxConcurrency: 2,
+  },
   turbopack: {
     rules: {
       "*.css": {

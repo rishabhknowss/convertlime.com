@@ -16,10 +16,16 @@ type Weight = 500 | 800;
 const loadWeight = async (family: string, weight: Weight, text: string) => {
   const css = await fetch(
     `https://fonts.googleapis.com/css2?family=${encodeURIComponent(family)}:wght@${weight}&text=${encodeURIComponent(text)}`,
-  ).then((response) => response.text());
+    { signal: AbortSignal.timeout(10_000) },
+  ).then((response) => {
+    if (!response.ok) throw new Error(`Font stylesheet request failed: ${response.status}`);
+    return response.text();
+  });
   const url = css.match(/src: url\((.+?)\) format\('(?:opentype|truetype)'\)/)?.[1];
   if (!url) return null;
-  return { name: family, data: await fetch(url).then((response) => response.arrayBuffer()), weight, style: "normal" as const };
+  const response = await fetch(url, { signal: AbortSignal.timeout(10_000) });
+  if (!response.ok) throw new Error(`Font request failed: ${response.status}`);
+  return { name: family, data: await response.arrayBuffer(), weight, style: "normal" as const };
 };
 
 export const ogFonts = async (locale: Locale, text: string) => {
