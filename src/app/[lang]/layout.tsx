@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { notFound } from "next/navigation";
 import { Geist, Geist_Mono } from "next/font/google";
 import { Providers } from "@/components/providers";
+import { Analytics } from "@/components/analytics";
 import { SITE, SOCIAL_IMAGE } from "@/config/site";
 import { LOCALES, LOCALE_META, isLocale } from "@/i18n/config";
 import { getDictionary } from "@/i18n/dictionaries";
@@ -27,10 +28,13 @@ export const generateMetadata = async ({ params }: LayoutProps<"/[lang]">): Prom
     applicationName: SITE.name,
     appleWebApp: { capable: true, title: SITE.name, statusBarStyle: "black-translucent" },
     verification: {
-      google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION,
-      other: process.env.NEXT_PUBLIC_BING_SITE_VERIFICATION
-        ? { "msvalidate.01": process.env.NEXT_PUBLIC_BING_SITE_VERIFICATION }
-        : undefined,
+      google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION ?? "N7XVVdzN3x0psxzk81PquhDI5KXciWxUSz6AuMLf0rc",
+      other: {
+        "ahrefs-site-verification": "51e4d9a639ead619df07aa295bfb8230fcc0177cebeb365b4ccd0d87a328b09d",
+        ...(process.env.NEXT_PUBLIC_BING_SITE_VERIFICATION
+          ? { "msvalidate.01": process.env.NEXT_PUBLIC_BING_SITE_VERIFICATION }
+          : {}),
+      },
     },
     openGraph: {
       title,
@@ -62,6 +66,7 @@ const RootLayout = async ({ children, params }: LayoutProps<"/[lang]">) => {
     >
       <body className="min-h-screen bg-background">
         <Providers locale={localeContext(lang)}>{children}</Providers>
+        <Analytics />
       </body>
     </html>
   );
