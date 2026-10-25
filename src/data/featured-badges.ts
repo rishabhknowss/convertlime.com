@@ -25,4 +25,12 @@ export const FEATURED_BADGES: FeaturedBadge[] = [
     width: 224,
     height: 36,
   },
+  {
+    name: "OpenHunts",
+    href: "https://openhunts.com",
+    src: "https://cdn.openhunts.com/badges/club.webp",
+    alt: "OpenHunts Club Member",
+    width: 486,
+    height: 105,
+  },
 ];
