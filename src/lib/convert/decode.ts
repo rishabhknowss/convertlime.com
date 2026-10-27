@@ -37,23 +37,32 @@ const isBlank = (canvas: HTMLCanvasElement) => {
   return true;
 };
 
-const decodeBitmap = async (blob: Blob) => {
+const fitted = (width: number, height: number, maxSide?: number) => {
+  const scale = maxSide ? Math.min(1, maxSide / Math.max(width, height)) : 1;
+  return [width * scale, height * scale] as const;
+};
+
+const decodeBitmap = async (blob: Blob, maxSide?: number) => {
   const bitmap = await createImageBitmap(blob);
-  const canvas = drawSource(bitmap, bitmap.width, bitmap.height);
+  const canvas = drawSource(bitmap, ...fitted(bitmap.width, bitmap.height, maxSide));
   bitmap.close();
   return canvas;
 };
 
-const decodeWithBrowser = async (blob: Blob) => {
+const decodeImageElement = async (blob: Blob, maxSide?: number) => {
+  const image = await loadImageElement(blob);
+  if (!image.naturalWidth || !image.naturalHeight) throw new Error("This file could not be read as an image.");
+  const canvas = drawSource(image, ...fitted(image.naturalWidth, image.naturalHeight, maxSide));
+  if (isBlank(canvas)) throw new Error("This file could not be read as an image.");
+  return canvas;
+};
+
+const decodeWithBrowser = async (blob: Blob, maxSide?: number) => {
+  if (maxSide) return decodeImageElement(blob, maxSide).catch(() => decodeBitmap(blob, maxSide));
   try {
     return await decodeBitmap(blob);
   } catch {
-    const image = await loadImageElement(blob);
-    if (!image.naturalWidth || !image.naturalHeight)
-      throw new Error("This file could not be read as an image.");
-    const canvas = drawSource(image, image.naturalWidth, image.naturalHeight);
-    if (isBlank(canvas)) throw new Error("This file could not be read as an image.");
-    return canvas;
+    return decodeImageElement(blob);
   }
 };
 
@@ -78,10 +87,14 @@ const decodeSvg = async (file: File) => {
   return drawSource(image, width * scale, height * scale);
 };
 
-const decodeHeic = async (file: File) => {
+const decodeHeic = async (file: File, maxSide?: number) => {
+  if (maxSide) {
+    const native = await decodeImageElement(file, maxSide).catch(() => null);
+    if (native) return native;
+  }
   const { default: heic2any } = await import("heic2any");
-  const result = await heic2any({ blob: file, toType: "image/png" });
-  return decodeWithBrowser(Array.isArray(result) ? result[0] : result);
+  const result = await heic2any(maxSide ? { blob: file, toType: "image/jpeg", quality: 0.95 } : { blob: file, toType: "image/png" });
+  return decodeWithBrowser(Array.isArray(result) ? result[0] : result, maxSide);
 };
 
 const decodeTiff = async (file: File) => {
@@ -99,10 +112,10 @@ const decodeTiff = async (file: File) => {
   return canvas;
 };
 
-export const decodeFile = (file: File): Promise<HTMLCanvasElement> => {
-  if (isHeic(file)) return decodeHeic(file);
+export const decodeFile = (file: File, maxSide?: number): Promise<HTMLCanvasElement> => {
+  if (isHeic(file)) return decodeHeic(file, maxSide);
   if (isTiff(file)) return decodeTiff(file);
   if (isSvg(file)) return decodeSvg(file);
   if (isAvif(file)) return decodeAvif(file);
-  return decodeWithBrowser(file);
+  return decodeWithBrowser(file, maxSide);
 };

@@ -75,6 +75,10 @@ export const es: Dictionary = {
       iosAdd: "Añadir a pantalla de inicio",
       manual: "Abre este sitio en Chrome o Edge y haz clic en el icono de instalar, a la derecha de la barra de direcciones.",
     },
+    errors: {
+      generic: "Algo salió mal. Inténtalo de nuevo.",
+      copy: "No se pudo copiar la imagen. Usa Descargar.",
+    },
     converter: {
       paste: "También puedes pegar una imagen con {key}+V",
       dropAnywhere: "Suelta tus archivos para añadirlos",

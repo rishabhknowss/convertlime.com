@@ -58,6 +58,10 @@ export const en: Dictionary = {
       iosAdd: "Add to Home Screen",
       manual: "Open this site in Chrome or Edge, then click the install icon at the right of the address bar.",
     },
+    errors: {
+      generic: "Something went wrong. Please try again.",
+      copy: "Couldn’t copy the image. Use Download instead.",
+    },
     converter: {
       paste: "You can also paste an image with {key}+V",
       dropAnywhere: "Drop your files to add them",

@@ -2,7 +2,13 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { cutOutFile, exportImage, previewImage, type ExportFormat } from "@/lib/remove-bg/engine";
+import { toast } from "sonner";
 import { downloadBlob, renameExtension, zipBlobs } from "@/lib/files";
+import { reportError } from "@/lib/report-error";
+
+export type RemoveBgMessages = { readError: string; failed: string; generic: string; copy: string };
+
+const TOOL = "remove-background";
 
 export type BgStatus = "ready" | "working" | "done" | "error";
 
@@ -19,7 +25,7 @@ export type BgItem = {
 const outputName = (name: string, format: ExportFormat) =>
   renameExtension(name, format).replace(/\.(\w+)$/, "-no-bg.$1");
 
-export const useRemoveBg = () => {
+export const useRemoveBg = (messages: RemoveBgMessages) => {
   const [items, setItems] = useState<BgItem[]>([]);
   const [selectedId, setSelectedId] = useState<string>();
   const [background, setBackground] = useState("transparent");
@@ -45,9 +51,13 @@ export const useRemoveBg = () => {
     added.forEach((item) =>
       previewImage(item.file)
         .then((blob) => update(item.id, { preview: track(blob) }))
-        .catch(() => update(item.id, { status: "error", error: true })),
+        .catch((error) => {
+          reportError(error, { action: "preview", tool: TOOL, file: item.file });
+          toast.error(messages.readError);
+          update(item.id, { status: "error", error: true });
+        }),
     );
-  }, []);
+  }, [messages.readError]);
 
   const removeBackgrounds = async () => {
     const pending = items.filter((item) => item.status === "ready" || item.status === "error");
@@ -58,7 +68,9 @@ export const useRemoveBg = () => {
       try {
         const cutout = await cutOutFile(item.file);
         update(item.id, { status: "done", cutout, result: track(cutout) });
-      } catch {
+      } catch (error) {
+        reportError(error, { action: "remove-background", tool: TOOL, file: item.file });
+        toast.error(messages.failed);
         update(item.id, { status: "error", error: true });
       }
     }
@@ -71,8 +83,13 @@ export const useRemoveBg = () => {
   });
 
   const download = async (item: BgItem) => {
-    const output = await exported(item);
-    downloadBlob(output.blob, output.name);
+    try {
+      const output = await exported(item);
+      downloadBlob(output.blob, output.name);
+    } catch (error) {
+      reportError(error, { action: `download-${format}`, tool: TOOL, file: item.file });
+      toast.error(messages.generic);
+    }
   };
 
   const downloadAll = async () => {
@@ -81,14 +98,24 @@ export const useRemoveBg = () => {
     try {
       const outputs = await Promise.all(done.map((item) => exported(item)));
       downloadBlob(await zipBlobs(outputs), "convertlime-no-background.zip");
+    } catch (error) {
+      reportError(error, { action: "zip", tool: TOOL });
+      toast.error(messages.generic);
     } finally {
       setBusy(false);
     }
   };
 
   const copy = async (item: BgItem) => {
-    const { blob } = await exported(item, "png");
-    await navigator.clipboard.write([new ClipboardItem({ "image/png": blob })]);
+    try {
+      const { blob } = await exported(item, "png");
+      await navigator.clipboard.write([new ClipboardItem({ "image/png": blob })]);
+      return true;
+    } catch (error) {
+      reportError(error, { action: "copy", tool: TOOL, file: item.file });
+      toast.error(messages.copy);
+      return false;
+    }
   };
 
   const remove = (id: string) => {

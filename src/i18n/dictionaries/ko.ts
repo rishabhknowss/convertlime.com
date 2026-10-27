@@ -55,6 +55,10 @@ export const ko: Dictionary = {
       iosAdd: "홈 화면에 추가",
       manual: "Chrome이나 Edge에서 이 사이트를 연 다음, 주소창 오른쪽에 있는 설치 아이콘을 클릭하세요.",
     },
+    errors: {
+      generic: "문제가 생겼어요. 다시 시도해 주세요.",
+      copy: "이미지를 복사하지 못했어요. 다운로드를 이용해 주세요.",
+    },
     converter: {
       paste: "{key}+V로 이미지를 붙여넣을 수도 있어요",
       dropAnywhere: "파일을 놓으면 바로 추가돼요",

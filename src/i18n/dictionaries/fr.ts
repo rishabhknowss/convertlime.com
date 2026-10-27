@@ -60,6 +60,10 @@ export const fr: Dictionary = {
       iosAdd: "Sur l'écran d'accueil",
       manual: "Ouvrez ce site dans Chrome ou Edge, puis cliquez sur l'icône d'installation à droite de la barre d'adresse.",
     },
+    errors: {
+      generic: "Un problème est survenu. Réessayez.",
+      copy: "Impossible de copier l’image. Utilisez Télécharger.",
+    },
     converter: {
       paste: "Vous pouvez aussi coller une image avec {key}+V",
       dropAnywhere: "Déposez vos fichiers pour les ajouter",

@@ -14,7 +14,7 @@ const DOTS = Array.from({ length: 18 }, (_, index) => ({
 export const ScanOverlay = () => {
   const { ui } = useLocale();
   const status = useRemoveBgStatus();
-  const preparing = status.phase === "loading";
+  const preparing = status.phase === "loading" && status.progress < 1;
   const label = preparing
     ? fill(ui.removeBg.preparing, { percent: Math.round(status.progress * 100) })
     : ui.removeBg.working;

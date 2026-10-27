@@ -55,6 +55,10 @@ export const zh: Dictionary = {
       iosAdd: "添加到主屏幕",
       manual: "请用Chrome或Edge打开本网站，然后点击地址栏右侧的安装图标。",
     },
+    errors: {
+      generic: "出了点问题，请重试。",
+      copy: "无法复制图片，请改用下载。",
+    },
     converter: {
       paste: "也可以用 {key}+V 粘贴图片",
       dropAnywhere: "松开即可添加文件",

@@ -5,6 +5,8 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { SearchProvider } from "@/components/search/search-provider";
 import { InstallProvider } from "@/components/pwa/install-provider";
 import { LocaleProvider } from "@/i18n/locale-provider";
+import { AppToaster } from "@/components/feedback/app-toaster";
+import { ErrorReporter } from "@/components/feedback/error-reporter";
 import type { localeContext } from "@/i18n/locale-context";
 
 type ProvidersProps = { locale: ReturnType<typeof localeContext>; children: React.ReactNode };
@@ -15,6 +17,8 @@ export const Providers = ({ locale, children }: ProvidersProps) => (
       <TooltipProvider>
         <InstallProvider>
           <SearchProvider>{children}</SearchProvider>
+          <AppToaster />
+          <ErrorReporter />
         </InstallProvider>
       </TooltipProvider>
     </ThemeProvider>

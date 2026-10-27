@@ -55,6 +55,10 @@ export const ja: Dictionary = {
       iosAdd: "ホーム画面に追加",
       manual: "このサイトをChromeまたはEdgeで開き、アドレスバー右側のインストールアイコンをクリックしてください。",
     },
+    errors: {
+      generic: "問題が発生しました。もう一度お試しください。",
+      copy: "画像をコピーできませんでした。ダウンロードをご利用ください。",
+    },
     converter: {
       paste: "{key}+V で画像を貼り付けることもできます",
       dropAnywhere: "ここにファイルをドロップして追加",

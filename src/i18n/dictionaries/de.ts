@@ -59,6 +59,10 @@ export const de: Dictionary = {
       manual:
         "Öffne diese Seite in Chrome oder Edge und klicke dann rechts in der Adressleiste auf das Installieren-Symbol.",
     },
+    errors: {
+      generic: "Etwas ist schiefgelaufen. Bitte versuche es erneut.",
+      copy: "Das Bild konnte nicht kopiert werden. Nutze stattdessen Herunterladen.",
+    },
     converter: {
       paste: "Du kannst auch ein Bild mit {key}+V einfügen",
       dropAnywhere: "Dateien hier ablegen, um sie hinzuzufügen",

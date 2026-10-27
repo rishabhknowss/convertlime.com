@@ -4,7 +4,9 @@ import { useCallback, useRef, useState } from "react";
 import type { Tool } from "@/data/tools";
 import { runOnFile, runToPdf, type Output, type RunOptions } from "@/lib/convert/run";
 import { downloadBlob, zipBlobs } from "@/lib/files";
+import { toast } from "sonner";
 import type { UiStrings } from "@/i18n/types";
+import { reportError } from "@/lib/report-error";
 
 export type ItemStatus = "queued" | "working" | "done" | "error";
 
@@ -23,7 +25,7 @@ const errorMessage = (error: unknown, text: UiStrings["converter"]) => {
   return text.readError;
 };
 
-export const useConverter = (tool: Tool, text: UiStrings["converter"]) => {
+export const useConverter = (tool: Tool, text: UiStrings["converter"], errors: UiStrings["errors"]) => {
   const [items, setItems] = useState<Item[]>([]);
   const [pdf, setPdf] = useState<Output | null>(null);
   const [busy, setBusy] = useState(false);
@@ -45,7 +47,10 @@ export const useConverter = (tool: Tool, text: UiStrings["converter"]) => {
           const output = await runOnFile(tool, item.file, runOptions);
           update(item.id, { status: "done", output });
         } catch (error) {
-          update(item.id, { status: "error", error: errorMessage(error, text) });
+          const message = errorMessage(error, text);
+          reportError(error, { action: "convert", tool: tool.slug, file: item.file });
+          toast.error(message);
+          update(item.id, { status: "error", error: message });
         }
       });
     },
@@ -85,6 +90,9 @@ export const useConverter = (tool: Tool, text: UiStrings["converter"]) => {
       const output = await runToPdf(items.map((item) => item.file), options);
       setPdf(output);
       downloadBlob(output.blob, output.name);
+    } catch (error) {
+      reportError(error, { action: "make-pdf", tool: tool.slug });
+      toast.error(errors.generic);
     } finally {
       setBusy(false);
     }
@@ -96,6 +104,9 @@ export const useConverter = (tool: Tool, text: UiStrings["converter"]) => {
     setBusy(true);
     try {
       downloadBlob(await zipBlobs(done), `convertlime-${tool.slug}.zip`);
+    } catch (error) {
+      reportError(error, { action: "zip", tool: tool.slug });
+      toast.error(errors.generic);
     } finally {
       setBusy(false);
     }

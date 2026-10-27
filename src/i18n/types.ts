@@ -56,6 +56,10 @@ export type UiStrings = {
     iosAdd: string;
     manual: string;
   };
+  errors: {
+    generic: string;
+    copy: string;
+  };
   converter: {
     paste: string;
     dropAnywhere: string;

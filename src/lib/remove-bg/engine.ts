@@ -1,20 +1,23 @@
-import { context2d, createCanvas, fitCanvas } from "@/lib/convert/canvas";
+import { context2d, createCanvas } from "@/lib/convert/canvas";
 import { decodeFile } from "@/lib/convert/decode";
 import { setLoading, setReady } from "@/lib/remove-bg/status";
 
 type Model = "isnet_fp16" | "isnet_quint8";
 type Device = "gpu" | "cpu";
 
-const MAX_SIDE = 4096;
+const isPhone = () =>
+  /Android|iPhone|iPad|iPod/i.test(navigator.userAgent) || (navigator.maxTouchPoints > 1 && /Macintosh/i.test(navigator.userAgent));
+
+const maxSide = () => (isPhone() ? 2048 : 4096);
 const cutOuts = new WeakMap<File, Promise<Blob>>();
 const downloads = new Map<string, [number, number]>();
 
 const lowMemory = () => {
   const memory = (navigator as Navigator & { deviceMemory?: number }).deviceMemory;
-  return (memory !== undefined && memory <= 4) || /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+  return (memory !== undefined && memory <= 4) || isPhone();
 };
 
-const hasWebGpu = () => "gpu" in navigator;
+const hasWebGpu = () => "gpu" in navigator && !isPhone();
 
 const trackDownload = (key: string, current: number, total: number) => {
   if (!key.startsWith("fetch:") || !total) return;
@@ -40,7 +43,7 @@ const run = async (input: Blob, model: Model, device: Device) => {
 };
 
 const cutOut = async (file: File) => {
-  const canvas = fitCanvas(await decodeFile(file), MAX_SIDE);
+  const canvas = await decodeFile(file, maxSide());
   const input = await canvasToPng(canvas);
   const model: Model = lowMemory() ? "isnet_quint8" : "isnet_fp16";
   setLoading(0);
@@ -101,7 +104,4 @@ export const exportImage = async (cutout: Blob, background: string, format: Expo
   );
 };
 
-export const previewImage = async (file: File) => {
-  const canvas = fitCanvas(await decodeFile(file), 1600);
-  return canvasToPng(canvas);
-};
+export const previewImage = async (file: File) => canvasToPng(await decodeFile(file, 1600));

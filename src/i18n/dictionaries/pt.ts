@@ -62,6 +62,10 @@ export const pt: Dictionary = {
       iosAdd: "Adicionar à Tela de Início",
       manual: "Abra este site no Chrome ou no Edge e clique no ícone de instalar, à direita da barra de endereço.",
     },
+    errors: {
+      generic: "Algo deu errado. Tente de novo.",
+      copy: "Não foi possível copiar a imagem. Use Baixar.",
+    },
     converter: {
       paste: "Você também pode colar uma imagem com {key}+V",
       dropAnywhere: "Solte seus arquivos para adicionar",

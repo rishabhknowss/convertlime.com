@@ -22,7 +22,7 @@ const FileConverter = ({ slug }: { slug: string }) => {
   const tool = getTool(slug)!;
   const { ui } = useLocale();
   const text = ui.converter;
-  const converter = useConverter(tool, text);
+  const converter = useConverter(tool, text, ui.errors);
   const { items } = converter;
   const fromLabel = tool.from.length > 2 ? text.images : fill(text.files, { format: FORMATS[tool.from[0]].label });
   const doneCount = items.filter((item) => item.output).length;

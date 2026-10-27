@@ -24,7 +24,12 @@ const hasTextSelection = () => Boolean(window.getSelection()?.toString());
 export const RemoveBgTool = () => {
   const { ui } = useLocale();
   const text = ui.removeBg;
-  const tool = useRemoveBg();
+  const tool = useRemoveBg({
+    readError: ui.converter.readError,
+    failed: text.failed,
+    generic: ui.errors.generic,
+    copy: ui.errors.copy,
+  });
   const status = useRemoveBgStatus();
   const input = useRef<HTMLInputElement>(null);
   const [copied, setCopied] = useState(false);
@@ -37,7 +42,7 @@ export const RemoveBgTool = () => {
 
   const copy = useCallback(async () => {
     if (!selected?.cutout) return;
-    await tool.copy(selected);
+    if (!(await tool.copy(selected))) return;
     setCopied(true);
     setTimeout(() => setCopied(false), 1600);
   }, [selected, tool]);
@@ -72,7 +77,7 @@ export const RemoveBgTool = () => {
         }}
       />
       {selected && <Stage item={selected} background={tool.background} />}
-      {status.phase === "loading" && <p className="text-xs text-muted-foreground">{text.preparingNote}</p>}
+      {status.phase === "loading" && status.progress < 1 && <p className="text-xs text-muted-foreground">{text.preparingNote}</p>}
       <Thumbnails
         items={items}
         selectedId={selected?.id}
