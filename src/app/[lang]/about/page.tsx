@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import { AppShell } from "@/components/layout/app-shell";
 import { Breadcrumbs } from "@/components/layout/breadcrumbs";
 import { SITE } from "@/config/site";
-import { getTool } from "@/data/tools";
+import { getTool, toolPath } from "@/data/tools";
 import { isLocale, localePath } from "@/i18n/config";
 import { getDictionary } from "@/i18n/dictionaries";
 import { localizedAlternates, toolHeading } from "@/lib/seo";
@@ -44,7 +44,7 @@ const About = async ({ params }: PageProps<"/[lang]/about">) => {
               const target = getTool(item.slug);
               return target ? (
                 <li key={item.slug}>
-                  <Link href={localePath(lang, `/${item.slug}`)}>{toolHeading(target, lang)}</Link> – {item.text}
+                  <Link href={toolPath(target, lang)}>{toolHeading(target, lang)}</Link> – {item.text}
                 </li>
               ) : null;
             })}

@@ -1,5 +1,6 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { DEFAULT_LOCALE, LOCALE_COOKIE, isLocale, type Locale } from "@/i18n/config";
+import { toolRedirect } from "@/data/tools";
 
 const COUNTRY_LOCALE: Record<string, Locale> = {
   JP: "ja",
@@ -78,7 +79,12 @@ const preferredLocale = (request: NextRequest): Locale => {
 
 export const proxy = (request: NextRequest) => {
   const { pathname, search } = request.nextUrl;
-  const [, first] = pathname.split("/");
+  const [, first, second, ...rest] = pathname.split("/");
+
+  const [locale, slug] = isLocale(first) ? [first, second] : [DEFAULT_LOCALE, first];
+  const extra = isLocale(first) ? rest : [second, ...rest].filter((part) => part !== undefined);
+  const moved = slug && extra.length === 0 ? toolRedirect(slug, locale) : null;
+  if (moved) return NextResponse.redirect(new URL(`${encodeURI(moved)}${search}`, request.url), 308);
 
   if (first === DEFAULT_LOCALE) {
     const url = request.nextUrl.clone();

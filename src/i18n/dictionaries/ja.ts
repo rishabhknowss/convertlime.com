@@ -1,4 +1,5 @@
 import type { Dictionary, ToolVars } from "@/i18n/types";
+import { removeBg } from "@/i18n/remove-bg/ja";
 
 const heading = (v: ToolVars) => {
   if (v.kind === "compress") return "画像圧縮";
@@ -55,6 +56,8 @@ export const ja: Dictionary = {
       manual: "このサイトをChromeまたはEdgeで開き、アドレスバー右側のインストールアイコンをクリックしてください。",
     },
     converter: {
+      paste: "{key}+V で画像を貼り付けることもできます",
+      dropAnywhere: "ここにファイルをドロップして追加",
       choose: "{files}を選択",
       addMore: "{files}を追加",
       dragDrop: "またはここにドラッグ＆ドロップ",
@@ -78,8 +81,31 @@ export const ja: Dictionary = {
       webpError: "このブラウザではWebPファイルを作成できません。Chrome、Edge、Firefoxをお試しください。",
       avifError: "このAVIFファイルを読み込めませんでした。一度開いて保存し直してからお試しください。",
     },
+    removeBg: {
+      removeButton: "背景を透過する",
+      removeMany: "{count}枚の背景を透過する",
+      format: "形式",
+      downloadAs: "{format}でダウンロード",
+      copy: "画像をコピー",
+      copied: "コピーしました",
+      addMore: "画像を追加",
+      jpgNote: "JPGは透明にできないため、背景は白になります。透明のままにするにはPNGかWebPを選んでください。",
+      preparing: "背景透過ツールを準備中… {percent}%",
+      preparingNote: "初回のみ、ブラウザがツールを一度だけ読み込みます。次回からはすぐに使え、オフラインでも動きます。写真がアップロードされることはありません。",
+      working: "背景を透過中…",
+      failed: "背景を透過できませんでした。初回はインターネット接続が必要です。もう一度お試しください。",
+      background: "背景",
+      transparent: "透明",
+      white: "白",
+      black: "黒",
+      pickColor: "色を選ぶ",
+      original: "元の画像",
+      result: "透過後",
+      compare: "元の画像と透過後を比べる",
+    },
   },
   categories: {
+    edit: "画像を編集",
     iphone: "iPhoneの写真",
     web: "Web画像",
     everyday: "よく使う形式",
@@ -462,4 +488,5 @@ export const ja: Dictionary = {
     body: "リンクが古い可能性があります。下のよく使われている変換ツールをお試しいただくか、こちらへどうぞ：",
     allTools: "すべてのツール",
   },
+  removeBg,
 };

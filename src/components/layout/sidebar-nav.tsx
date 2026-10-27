@@ -6,6 +6,14 @@ import { BookOpen, ChevronRight, Info, LayoutGrid, ShieldCheck } from "lucide-re
 import { cn } from "@/lib/utils";
 import { useLocale, useLocalePath } from "@/i18n/locale-provider";
 
+const safeDecode = (path: string) => {
+  try {
+    return decodeURI(path);
+  } catch {
+    return path;
+  }
+};
+
 const navLink = (active: boolean) =>
   cn(
     "flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition-colors",
@@ -17,6 +25,7 @@ export const SidebarNav = ({ onNavigate }: { onNavigate?: () => void }) => {
   const { ui, tools, categories } = useLocale();
   const toPath = useLocalePath();
   const isActive = (path: string) => pathname === toPath(path);
+  const isCurrent = (path: string) => safeDecode(pathname) === path;
 
   return (
     <nav className="flex flex-col gap-1 text-sm">
@@ -27,7 +36,7 @@ export const SidebarNav = ({ onNavigate }: { onNavigate?: () => void }) => {
       <p className="mt-5 mb-1 px-3 text-xs font-medium text-muted-foreground/70">{ui.nav.tools}</p>
       {categories.map((category) => {
         const items = tools.filter((tool) => tool.category === category.id);
-        const open = items.some((tool) => isActive(`/${tool.slug}`));
+        const open = items.some((tool) => isCurrent(tool.path));
         return (
           <details key={category.id} open={open} className="group">
             <summary className="flex cursor-pointer list-none items-center justify-between rounded-lg px-3 py-2 text-muted-foreground transition-colors hover:bg-sidebar-accent/60 hover:text-foreground">
@@ -41,9 +50,9 @@ export const SidebarNav = ({ onNavigate }: { onNavigate?: () => void }) => {
               {items.map((tool) => (
                 <Link
                   key={tool.slug}
-                  href={toPath(`/${tool.slug}`)}
+                  href={tool.path}
                   onClick={onNavigate}
-                  className={cn(navLink(isActive(`/${tool.slug}`)), "py-1.5")}
+                  className={cn(navLink(isCurrent(tool.path)), "py-1.5")}
                 >
                   {tool.heading}
                 </Link>

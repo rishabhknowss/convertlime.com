@@ -1,8 +1,9 @@
 import type { FormatId } from "@/data/formats";
+import { localePath, type Locale } from "@/i18n/config";
 
-export type ToolKind = "convert" | "compress" | "resize-kb" | "to-pdf";
+export type ToolKind = "convert" | "compress" | "resize-kb" | "to-pdf" | "remove-bg";
 
-export type CategoryId = "iphone" | "web" | "everyday" | "compress" | "pdf";
+export type CategoryId = "edit" | "iphone" | "web" | "everyday" | "compress" | "pdf";
 
 export type Tool = {
   slug: string;
@@ -14,9 +15,11 @@ export type Tool = {
   to: FormatId;
   targetKb?: number;
   featured?: boolean;
+  localSlugs?: Partial<Record<Locale, string>>;
 };
 
 export const CATEGORIES: { id: CategoryId; label: string }[] = [
+  { id: "edit", label: "Edit images" },
   { id: "iphone", label: "iPhone photos" },
   { id: "web", label: "Web images" },
   { id: "everyday", label: "Everyday formats" },
@@ -56,7 +59,30 @@ const resizeKb = (kb: number): Tool => ({
   targetKb: kb,
 });
 
+const removeBackground: Tool = {
+  slug: "remove-background",
+  kind: "remove-bg",
+  category: "edit",
+  title: "Remove background",
+  keyword: "remove background",
+  from: ["jpg", "jpeg", "png", "webp", "heic", "avif", "jfif", "bmp", "gif"],
+  to: "png",
+  featured: true,
+  localSlugs: {
+    es: "quitar-fondo",
+    pt: "remover-fundo",
+    fr: "enlever-fond-image",
+    de: "hintergrund-entfernen",
+    ja: "背景透過",
+    ko: "배경제거",
+    zh: "去背",
+  },
+};
+
+export const TOOL_ALIASES: Record<string, string> = { "remove-bg": "remove-background" };
+
 export const TOOLS: Tool[] = [
+  removeBackground,
   convert("heic", "jpg", "iphone", true),
   convert("heic", "png", "iphone", true),
   toPdf("heic", "iphone"),
@@ -130,6 +156,30 @@ export const TOOLS: Tool[] = [
 ];
 
 export const getTool = (slug: string) => TOOLS.find((tool) => tool.slug === slug);
+
+const decode = (slug: string) => {
+  try {
+    return decodeURIComponent(slug);
+  } catch {
+    return slug;
+  }
+};
+
+export const toolSlug = (tool: Tool, locale: Locale) => tool.localSlugs?.[locale] ?? tool.slug;
+
+export const toolPath = (tool: Tool, locale: Locale) => localePath(locale, `/${toolSlug(tool, locale)}`);
+
+export const findTool = (slug: string, locale: Locale) => {
+  const wanted = decode(slug);
+  return TOOLS.find((tool) => toolSlug(tool, locale) === wanted);
+};
+
+export const toolRedirect = (slug: string, locale: Locale) => {
+  const wanted = decode(slug);
+  const tool = getTool(TOOL_ALIASES[wanted] ?? wanted) ?? TOOLS.find((item) => Object.values(item.localSlugs ?? {}).includes(wanted));
+  if (!tool || toolSlug(tool, locale) === wanted) return null;
+  return toolPath(tool, locale);
+};
 
 export const toolsByCategory = (category: CategoryId) =>
   TOOLS.filter((tool) => tool.category === category);

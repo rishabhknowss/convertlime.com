@@ -1,4 +1,5 @@
 import type { Dictionary, ToolVars } from "@/i18n/types";
+import { removeBg } from "@/i18n/remove-bg/de";
 
 const heading = (v: ToolVars) => {
   if (v.kind === "resize-kb") return `Bild auf ${v.kb} KB verkleinern`;
@@ -59,6 +60,8 @@ export const de: Dictionary = {
         "Öffne diese Seite in Chrome oder Edge und klicke dann rechts in der Adressleiste auf das Installieren-Symbol.",
     },
     converter: {
+      paste: "Du kannst auch ein Bild mit {key}+V einfügen",
+      dropAnywhere: "Dateien hier ablegen, um sie hinzuzufügen",
       choose: "{files} auswählen",
       addMore: "Weitere {files} hinzufügen",
       dragDrop: "oder hierher ziehen und ablegen",
@@ -82,8 +85,31 @@ export const de: Dictionary = {
       webpError: "Dieser Browser kann keine WebP-Dateien erstellen. Versuche es mit Chrome, Edge oder Firefox.",
       avifError: "Diese AVIF-Datei konnte nicht gelesen werden. Öffne sie zuerst und speichere sie neu.",
     },
+    removeBg: {
+      removeButton: "Hintergrund entfernen",
+      removeMany: "Hintergrund von {count} Bildern entfernen",
+      format: "Format",
+      downloadAs: "{format} herunterladen",
+      copy: "Bild kopieren",
+      copied: "Kopiert",
+      addMore: "Weitere Bilder hinzufügen",
+      jpgNote: "JPG kann keine Transparenz, deshalb wird ein weißer Hintergrund verwendet. Wähle PNG oder WebP für einen transparenten Hintergrund.",
+      preparing: "Hintergrund-Entferner wird vorbereitet… {percent} %",
+      preparingNote: "Nur beim ersten Mal: Dein Browser lädt das Werkzeug einmal herunter. Danach startet es sofort, auch offline. Deine Fotos werden nie hochgeladen.",
+      working: "Hintergrund wird entfernt…",
+      failed: "Der Hintergrund konnte nicht entfernt werden. Beim ersten Mal brauchst du eine Internetverbindung; versuche es erneut.",
+      background: "Hintergrund",
+      transparent: "Transparent",
+      white: "Weiß",
+      black: "Schwarz",
+      pickColor: "Farbe",
+      original: "Original",
+      result: "Ergebnis",
+      compare: "Original und Ergebnis vergleichen",
+    },
   },
   categories: {
+    edit: "Bilder bearbeiten",
     iphone: "iPhone-Fotos",
     web: "Bilder aus dem Web",
     everyday: "Alltägliche Formate",
@@ -495,4 +521,5 @@ export const de: Dictionary = {
     body: "Der Link ist vielleicht veraltet. Probier einen der beliebtesten Konverter unten aus oder geh zu",
     allTools: "allen Tools",
   },
+  removeBg,
 };

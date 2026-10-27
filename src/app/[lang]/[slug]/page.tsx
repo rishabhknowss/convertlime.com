@@ -7,20 +7,20 @@ import { ToolArticle } from "@/components/tool/tool-article";
 import { ToolJsonLd } from "@/components/tool/tool-json-ld";
 import { RelatedTools } from "@/components/tool/related-tools";
 import { ToolGuides } from "@/components/tool/tool-guides";
-import { TOOLS, getTool } from "@/data/tools";
+import { TOOLS, findTool, toolSlug } from "@/data/tools";
 import { toolContent } from "@/lib/content";
-import { toolHeading, toolLead, toolMetadata } from "@/lib/seo";
+import { toolHeading, toolLead, toolMetadata, toolPromises } from "@/lib/seo";
 import { LOCALES, isLocale, localePath } from "@/i18n/config";
 import { getDictionary } from "@/i18n/dictionaries";
 
 export const dynamicParams = false;
 
 export const generateStaticParams = () =>
-  LOCALES.flatMap((lang) => TOOLS.map((tool) => ({ lang, slug: tool.slug })));
+  LOCALES.flatMap((lang) => TOOLS.map((tool) => ({ lang, slug: toolSlug(tool, lang) })));
 
 export const generateMetadata = async ({ params }: PageProps<"/[lang]/[slug]">) => {
   const { lang, slug } = await params;
-  const tool = getTool(slug);
+  const tool = isLocale(lang) ? findTool(slug, lang) : undefined;
   return tool && isLocale(lang) ? toolMetadata(tool, lang) : {};
 };
 
@@ -28,8 +28,9 @@ const ICONS = [Lock, Zap, Sparkles];
 
 const ToolPage = async ({ params }: PageProps<"/[lang]/[slug]">) => {
   const { lang, slug } = await params;
-  const tool = getTool(slug);
-  if (!tool || !isLocale(lang)) notFound();
+  if (!isLocale(lang)) notFound();
+  const tool = findTool(slug, lang);
+  if (!tool) notFound();
   const content = toolContent(tool, lang);
   const heading = toolHeading(tool, lang);
   const { tool: text } = getDictionary(lang);
@@ -42,7 +43,7 @@ const ToolPage = async ({ params }: PageProps<"/[lang]/[slug]">) => {
         <h1 className="text-4xl font-bold tracking-tight md:text-5xl">{heading}</h1>
         <p className="mt-3 text-lg text-muted-foreground">{toolLead(tool, lang)}</p>
         <ul className="mt-5 mb-8 flex flex-wrap gap-x-6 gap-y-2 text-sm text-muted-foreground">
-          {text.promises.map((promise, index) => {
+          {toolPromises(tool, lang).map((promise, index) => {
             const Icon = ICONS[index];
             return (
               <li key={promise} className="flex items-center gap-2">

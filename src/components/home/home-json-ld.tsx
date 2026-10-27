@@ -1,7 +1,7 @@
 import { JsonLd } from "@/components/seo/json-ld";
 import { SITE } from "@/config/site";
 import { TOOLS } from "@/data/tools";
-import { pageUrl, toolHeading } from "@/lib/seo";
+import { pageUrl, toolHeading, toolUrl } from "@/lib/seo";
 import { LOCALE_META, type Locale } from "@/i18n/config";
 import { getDictionary } from "@/i18n/dictionaries";
 
@@ -45,7 +45,7 @@ export const HomeJsonLd = ({ locale }: { locale: Locale }) => {
             "@type": "ListItem",
             position: index + 1,
             name: toolHeading(tool, locale),
-            url: pageUrl(locale, `/${tool.slug}`),
+            url: toolUrl(tool, locale),
           })),
         },
       ]}

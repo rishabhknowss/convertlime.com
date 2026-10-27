@@ -11,8 +11,14 @@ import { OptionsBar } from "@/components/tool/options-bar";
 import { FORMATS } from "@/data/formats";
 import { fill } from "@/i18n/config";
 import { useLocale } from "@/i18n/locale-provider";
+import { RemoveBgTool } from "@/components/remove-bg/remove-bg-tool";
 
 export const Converter = ({ slug }: { slug: string }) => {
+  const tool = getTool(slug)!;
+  return tool.kind === "remove-bg" ? <RemoveBgTool /> : <FileConverter slug={slug} />;
+};
+
+const FileConverter = ({ slug }: { slug: string }) => {
   const tool = getTool(slug)!;
   const { ui } = useLocale();
   const text = ui.converter;
