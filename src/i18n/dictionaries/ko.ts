@@ -1,4 +1,5 @@
 import type { Dictionary, ToolVars } from "@/i18n/types";
+import { removeBg } from "@/i18n/remove-bg/ko";
 
 const heading = (v: ToolVars) => {
   if (v.kind === "resize-kb") return `사진 ${v.kb}KB로 줄이기`;
@@ -55,6 +56,8 @@ export const ko: Dictionary = {
       manual: "Chrome이나 Edge에서 이 사이트를 연 다음, 주소창 오른쪽에 있는 설치 아이콘을 클릭하세요.",
     },
     converter: {
+      paste: "{key}+V로 이미지를 붙여넣을 수도 있어요",
+      dropAnywhere: "파일을 놓으면 바로 추가돼요",
       choose: "{files} 선택",
       addMore: "{files} 더 추가",
       dragDrop: "또는 여기로 끌어다 놓으세요",
@@ -78,8 +81,31 @@ export const ko: Dictionary = {
       webpError: "이 브라우저에서는 WebP 파일을 만들 수 없어요. Chrome, Edge 또는 Firefox를 사용해 보세요.",
       avifError: "이 AVIF 파일을 읽을 수 없어요. 파일을 한 번 열어서 다시 저장한 뒤 시도해 보세요.",
     },
+    removeBg: {
+      removeButton: "배경 제거하기",
+      removeMany: "이미지 {count}장 배경 제거",
+      format: "형식",
+      downloadAs: "{format} 다운로드",
+      copy: "이미지 복사",
+      copied: "복사됨",
+      addMore: "이미지 추가",
+      jpgNote: "JPG는 투명 배경을 지원하지 않아 흰색 배경으로 저장돼요. 투명하게 두려면 PNG나 WebP를 고르세요.",
+      preparing: "배경 제거 도구 준비 중… {percent}%",
+      preparingNote: "처음 한 번만 브라우저가 도구를 내려받습니다. 그다음부터는 바로 시작되고 인터넷이 없어도 됩니다. 사진은 절대 업로드되지 않습니다.",
+      working: "배경 제거 중…",
+      failed: "배경을 제거하지 못했습니다. 처음 사용할 때는 인터넷 연결이 필요해요. 다시 시도해 주세요.",
+      background: "배경",
+      transparent: "투명",
+      white: "흰색",
+      black: "검은색",
+      pickColor: "색상",
+      original: "원본",
+      result: "결과",
+      compare: "원본과 결과 비교",
+    },
   },
   categories: {
+    edit: "이미지 편집",
     iphone: "아이폰 사진",
     web: "웹 이미지",
     everyday: "자주 쓰는 형식",
@@ -458,4 +484,5 @@ export const ko: Dictionary = {
     body: "오래된 링크일 수 있어요. 아래에서 많이 쓰는 변환기를 이용하거나, 여기로 이동하세요:",
     allTools: "전체 도구",
   },
+  removeBg,
 };

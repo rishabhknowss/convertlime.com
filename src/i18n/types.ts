@@ -57,6 +57,8 @@ export type UiStrings = {
     manual: string;
   };
   converter: {
+    paste: string;
+    dropAnywhere: string;
     choose: string;
     addMore: string;
     dragDrop: string;
@@ -79,6 +81,28 @@ export type UiStrings = {
     readError: string;
     webpError: string;
     avifError: string;
+  };
+  removeBg: {
+    preparing: string;
+    preparingNote: string;
+    removeButton: string;
+    removeMany: string;
+    format: string;
+    downloadAs: string;
+    copy: string;
+    copied: string;
+    addMore: string;
+    jpgNote: string;
+    working: string;
+    failed: string;
+    background: string;
+    transparent: string;
+    white: string;
+    black: string;
+    pickColor: string;
+    original: string;
+    result: string;
+    compare: string;
   };
 };
 
@@ -178,4 +202,15 @@ export type Dictionary = {
   };
   privacy: { h1: string; metaDescription: string; points: { heading: string; body: string }[] };
   notFound: { title: string; h1: string; body: string; allTools: string };
+  removeBg: {
+    heading: string;
+    title: string;
+    description: string;
+    lead: string;
+    keywords: string[];
+    promises: [string, string, string];
+    steps: string[];
+    sections: TextSection[];
+    faqs: QA[];
+  };
 };

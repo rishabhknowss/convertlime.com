@@ -1,5 +1,6 @@
 import type { FormatId } from "@/data/formats";
 import type { Dictionary, ToolVars } from "@/i18n/types";
+import { removeBg } from "@/i18n/remove-bg/fr";
 
 const ELIDED = new Set<FormatId>(["avif", "ico"]);
 const TheFormat = (id: FormatId, label: string) => (ELIDED.has(id) ? `L'${label}` : `Le ${label}`);
@@ -60,6 +61,8 @@ export const fr: Dictionary = {
       manual: "Ouvrez ce site dans Chrome ou Edge, puis cliquez sur l'icône d'installation à droite de la barre d'adresse.",
     },
     converter: {
+      paste: "Vous pouvez aussi coller une image avec {key}+V",
+      dropAnywhere: "Déposez vos fichiers pour les ajouter",
       choose: "Choisir des {files}",
       addMore: "Ajouter d'autres {files}",
       dragDrop: "ou glissez-les ici",
@@ -83,8 +86,31 @@ export const fr: Dictionary = {
       webpError: "Ce navigateur ne peut pas créer de fichiers WebP. Essayez Chrome, Edge ou Firefox.",
       avifError: "Ce fichier AVIF n'a pas pu être lu. Essayez d'abord de l'ouvrir puis de l'enregistrer à nouveau.",
     },
+    removeBg: {
+      removeButton: "Enlever le fond",
+      removeMany: "Enlever le fond de {count} images",
+      format: "Format",
+      downloadAs: "Télécharger en {format}",
+      copy: "Copier l’image",
+      copied: "Copiée",
+      addMore: "Ajouter des images",
+      jpgNote: "Le JPG ne gère pas la transparence : un fond blanc est utilisé. Choisissez PNG ou WebP pour garder le fond transparent.",
+      preparing: "Préparation de l’outil… {percent} %",
+      preparingNote: "La première fois seulement : votre navigateur télécharge l’outil une fois. Ensuite il démarre tout de suite, même hors ligne. Vos photos ne sont jamais envoyées.",
+      working: "Suppression du fond…",
+      failed: "Le fond n’a pas pu être supprimé. La première utilisation demande une connexion internet ; réessayez.",
+      background: "Fond",
+      transparent: "Transparent",
+      white: "Blanc",
+      black: "Noir",
+      pickColor: "Couleur",
+      original: "Original",
+      result: "Résultat",
+      compare: "Comparer l’original et le résultat",
+    },
   },
   categories: {
+    edit: "Modifier des images",
     iphone: "Photos d'iPhone",
     web: "Images du web",
     everyday: "Formats courants",
@@ -500,4 +526,5 @@ export const fr: Dictionary = {
     body: "Le lien est peut-être ancien. Essayez l'un des convertisseurs les plus utilisés ci-dessous, ou consultez",
     allTools: "tous les outils",
   },
+  removeBg,
 };

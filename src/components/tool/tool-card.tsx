@@ -1,15 +1,15 @@
 import Link from "next/link";
-import type { Tool } from "@/data/tools";
+import { toolPath, type Tool } from "@/data/tools";
 import { toolHeading } from "@/lib/seo";
 import { ToolIcon } from "@/components/tool/tool-icon";
 import { cn } from "@/lib/utils";
-import { localePath, type Locale } from "@/i18n/config";
+import type { Locale } from "@/i18n/config";
 
 type ToolCardProps = { tool: Tool; locale: Locale; size?: "md" | "lg" };
 
 export const ToolCard = ({ tool, locale, size = "md" }: ToolCardProps) => (
   <Link
-    href={localePath(locale, `/${tool.slug}`)}
+    href={toolPath(tool, locale)}
     className={cn(
       "group flex flex-col justify-between gap-6 rounded-2xl border bg-card p-5 transition-colors hover:border-primary/50 hover:bg-accent",
       size === "lg" ? "min-h-36" : "min-h-28",

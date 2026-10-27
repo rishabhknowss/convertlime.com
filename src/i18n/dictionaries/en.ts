@@ -1,4 +1,5 @@
 import type { Dictionary, FormatVars, ToolVars } from "@/i18n/types";
+import { removeBg } from "@/i18n/remove-bg/en";
 
 const AN = new Set(["avif", "ico", "svg"]);
 const article = (f: FormatVars) => (AN.has(f.id) ? "an" : "a");
@@ -58,6 +59,8 @@ export const en: Dictionary = {
       manual: "Open this site in Chrome or Edge, then click the install icon at the right of the address bar.",
     },
     converter: {
+      paste: "You can also paste an image with {key}+V",
+      dropAnywhere: "Drop your files to add them",
       choose: "Choose {files}",
       addMore: "Add more {files}",
       dragDrop: "or drag and drop them here",
@@ -81,8 +84,31 @@ export const en: Dictionary = {
       webpError: "This browser cannot create WebP files. Try Chrome, Edge or Firefox.",
       avifError: "This AVIF file could not be read. Try opening and re-saving it first.",
     },
+    removeBg: {
+      removeButton: "Remove background",
+      removeMany: "Remove background from {count} images",
+      format: "Format",
+      downloadAs: "Download {format}",
+      copy: "Copy image",
+      copied: "Copied",
+      addMore: "Add more images",
+      jpgNote: "JPG has no transparency, so a white background is used. Choose PNG or WebP to keep it transparent.",
+      preparing: "Getting the background remover ready… {percent}%",
+      preparingNote: "Only the first time: your browser downloads the background remover once. After that it starts instantly, even offline. Your photos are never uploaded.",
+      working: "Removing background…",
+      failed: "The background could not be removed. Check your internet connection for the first use and try again.",
+      background: "Background",
+      transparent: "Transparent",
+      white: "White",
+      black: "Black",
+      pickColor: "Color",
+      original: "Original",
+      result: "Result",
+      compare: "Compare original and result",
+    },
   },
   categories: {
+    edit: "Edit images",
     iphone: "iPhone photos",
     web: "Web images",
     everyday: "Everyday formats",
@@ -458,4 +484,5 @@ export const en: Dictionary = {
     body: "The link may be old. Try one of the most used converters below, or go to",
     allTools: "all tools",
   },
+  removeBg,
 };

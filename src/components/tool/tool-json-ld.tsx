@@ -1,7 +1,7 @@
 import type { Tool } from "@/data/tools";
 import type { ToolContent } from "@/lib/content";
 import { SITE } from "@/config/site";
-import { pageUrl, toolDescription, toolHeading } from "@/lib/seo";
+import { pageUrl, toolDescription, toolHeading, toolUrl } from "@/lib/seo";
 import { LOCALE_META, type Locale } from "@/i18n/config";
 import { getDictionary } from "@/i18n/dictionaries";
 import { JsonLd } from "@/components/seo/json-ld";
@@ -9,7 +9,7 @@ import { JsonLd } from "@/components/seo/json-ld";
 type ToolJsonLdProps = { tool: Tool; content: ToolContent; locale: Locale };
 
 export const ToolJsonLd = ({ tool, content, locale }: ToolJsonLdProps) => {
-  const url = pageUrl(locale, `/${tool.slug}`);
+  const url = toolUrl(tool, locale);
   const heading = toolHeading(tool, locale);
   const dict = getDictionary(locale);
   return (

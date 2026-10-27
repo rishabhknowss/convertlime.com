@@ -2,7 +2,7 @@ import { SITE } from "@/config/site";
 import { CATEGORIES, toolsByCategory } from "@/data/tools";
 import { getPosts } from "@/lib/blog";
 import { toolContent } from "@/lib/content";
-import { pageUrl, toolDescription, toolHeading } from "@/lib/seo";
+import { pageUrl, toolDescription, toolHeading, toolUrl } from "@/lib/seo";
 import { LOCALES, LOCALE_META } from "@/i18n/config";
 
 const intro = () => [
@@ -21,7 +21,7 @@ export const llmsIndex = () => {
   for (const category of CATEGORIES) {
     lines.push(`## ${category.label}`, "");
     for (const tool of toolsByCategory(category.id))
-      lines.push(`- [${toolHeading(tool, "en")}](${SITE.url}/${tool.slug}): ${toolDescription(tool, "en")}`);
+      lines.push(`- [${toolHeading(tool, "en")}](${toolUrl(tool, "en")}): ${toolDescription(tool, "en")}`);
     lines.push("");
   }
   lines.push("## Guides", "");
@@ -36,7 +36,7 @@ export const llmsFull = () => {
   for (const category of CATEGORIES) {
     for (const tool of toolsByCategory(category.id)) {
       const content = toolContent(tool, "en");
-      lines.push(`## ${toolHeading(tool, "en")}`, "", `URL: ${SITE.url}/${tool.slug}`, "", toolDescription(tool, "en"), "");
+      lines.push(`## ${toolHeading(tool, "en")}`, "", `URL: ${toolUrl(tool, "en")}`, "", toolDescription(tool, "en"), "");
       content.steps.forEach((step, index) => lines.push(`${index + 1}. ${step}`));
       lines.push("");
       for (const faq of content.faqs) lines.push(`Q: ${faq.question}`, `A: ${faq.answer}`, "");

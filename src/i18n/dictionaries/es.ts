@@ -1,4 +1,5 @@
 import type { Dictionary, ToolVars } from "@/i18n/types";
+import { removeBg } from "@/i18n/remove-bg/es";
 
 const IMAGE_WORD = "imagen";
 const VERBS = /^(Convertir|Comprimir|Reducir)\b/;
@@ -75,6 +76,8 @@ export const es: Dictionary = {
       manual: "Abre este sitio en Chrome o Edge y haz clic en el icono de instalar, a la derecha de la barra de direcciones.",
     },
     converter: {
+      paste: "También puedes pegar una imagen con {key}+V",
+      dropAnywhere: "Suelta tus archivos para añadirlos",
       choose: "Elegir {files}",
       addMore: "Añadir más {files}",
       dragDrop: "o arrástralos y suéltalos aquí",
@@ -98,8 +101,31 @@ export const es: Dictionary = {
       webpError: "Este navegador no puede crear archivos WebP. Prueba con Chrome, Edge o Firefox.",
       avifError: "No se pudo abrir este archivo AVIF. Prueba a abrirlo y volver a guardarlo primero.",
     },
+    removeBg: {
+      removeButton: "Quitar fondo",
+      removeMany: "Quitar fondo de {count} imágenes",
+      format: "Formato",
+      downloadAs: "Descargar {format}",
+      copy: "Copiar imagen",
+      copied: "Copiada",
+      addMore: "Añadir más imágenes",
+      jpgNote: "JPG no admite transparencia, así que se usa fondo blanco. Elige PNG o WebP para mantenerlo transparente.",
+      preparing: "Preparando el quitafondos… {percent}%",
+      preparingNote: "Solo la primera vez: tu navegador descarga la herramienta una vez. Después empieza al instante, incluso sin conexión. Tus fotos nunca se suben.",
+      working: "Quitando el fondo…",
+      failed: "No se pudo quitar el fondo. La primera vez necesitas conexión a internet; inténtalo de nuevo.",
+      background: "Fondo",
+      transparent: "Transparente",
+      white: "Blanco",
+      black: "Negro",
+      pickColor: "Color",
+      original: "Original",
+      result: "Resultado",
+      compare: "Comparar original y resultado",
+    },
   },
   categories: {
+    edit: "Editar imágenes",
     iphone: "Fotos de iPhone",
     web: "Imágenes web",
     everyday: "Formatos habituales",
@@ -494,4 +520,5 @@ export const es: Dictionary = {
     body: "Puede que el enlace sea antiguo. Prueba uno de los convertidores más usados que verás abajo o ve a",
     allTools: "todas las herramientas",
   },
+  removeBg,
 };

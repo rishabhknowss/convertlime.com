@@ -1,4 +1,5 @@
 import type { Dictionary, ToolVars } from "@/i18n/types";
+import { removeBg } from "@/i18n/remove-bg/zh";
 
 const heading = (v: ToolVars) => {
   if (v.kind === "compress") return "图片压缩";
@@ -55,6 +56,8 @@ export const zh: Dictionary = {
       manual: "请用Chrome或Edge打开本网站，然后点击地址栏右侧的安装图标。",
     },
     converter: {
+      paste: "也可以用 {key}+V 粘贴图片",
+      dropAnywhere: "松开即可添加文件",
       choose: "选择{files}",
       addMore: "继续添加{files}",
       dragDrop: "或把文件拖到这里",
@@ -78,8 +81,31 @@ export const zh: Dictionary = {
       webpError: "当前浏览器无法生成WebP文件，请换用Chrome、Edge或Firefox试试。",
       avifError: "无法读取这个AVIF文件。请先打开它并重新保存一次，再试一下。",
     },
+    removeBg: {
+      removeButton: "一键去背",
+      removeMany: "给 {count} 张图片去背",
+      format: "格式",
+      downloadAs: "下载 {format}",
+      copy: "复制图片",
+      copied: "已复制",
+      addMore: "添加更多图片",
+      jpgNote: "JPG 不支持透明，所以会使用白色背景。想保留透明背景请选择 PNG 或 WebP。",
+      preparing: "正在准备去背工具… {percent}%",
+      preparingNote: "仅第一次：浏览器会下载一次工具。之后会立即启动，离线也能用。你的照片绝不会上传。",
+      working: "正在去背…",
+      failed: "无法去除背景。首次使用需要联网，请重试。",
+      background: "背景",
+      transparent: "透明",
+      white: "白色",
+      black: "黑色",
+      pickColor: "颜色",
+      original: "原图",
+      result: "结果",
+      compare: "对比原图和结果",
+    },
   },
   categories: {
+    edit: "编辑图片",
     iphone: "iPhone照片",
     web: "网页图片",
     everyday: "常用格式",
@@ -449,4 +475,5 @@ export const zh: Dictionary = {
     body: "链接可能已经失效。试试下面最常用的转换工具，或者前往",
     allTools: "全部工具",
   },
+  removeBg,
 };

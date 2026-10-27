@@ -82,5 +82,7 @@ export const toolContent = (tool: Tool, locale: Locale): ToolContent => {
   if (tool.kind === "compress")
     return { steps: dict.content.compress.steps, sections: dict.content.compress.sections, faqs: dict.content.compress.faqs };
   if (tool.kind === "to-pdf") return pdfContent(tool, dict);
+  if (tool.kind === "remove-bg")
+    return { steps: dict.removeBg.steps, sections: dict.removeBg.sections, faqs: dict.removeBg.faqs };
   return convertContent(tool, locale, dict);
 };

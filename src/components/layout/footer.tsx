@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { SITE } from "@/config/site";
-import { TOOLS } from "@/data/tools";
+import { TOOLS, toolPath } from "@/data/tools";
 import { toolHeading } from "@/lib/seo";
 import { localePath, type Locale } from "@/i18n/config";
 import { getDictionary } from "@/i18n/dictionaries";
@@ -20,7 +20,7 @@ export const Footer = ({ locale }: { locale: Locale }) => {
     <footer className="border-t px-4 py-10 text-sm text-muted-foreground lg:px-12">
       <div className="mx-auto grid max-w-5xl gap-x-6 gap-y-2 sm:grid-cols-3 lg:grid-cols-4">
         {TOOLS.filter((tool) => tool.featured).map((tool) => (
-          <Link key={tool.slug} href={localePath(locale, `/${tool.slug}`)} className="hover:text-foreground">
+          <Link key={tool.slug} href={toolPath(tool, locale)} className="hover:text-foreground">
             {toolHeading(tool, locale)}
           </Link>
         ))}

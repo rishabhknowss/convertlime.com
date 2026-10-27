@@ -172,3 +172,59 @@
     @apply border-t px-4 py-3;
   }
 }
+
+@keyframes cl-scan {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(100%);
+  }
+}
+
+@keyframes cl-reveal {
+  from {
+    clip-path: inset(0 0 100% 0);
+    opacity: 0.4;
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+    opacity: 1;
+  }
+}
+
+@keyframes cl-sparkle {
+  0%,
+  100% {
+    opacity: 0.15;
+  }
+  50% {
+    opacity: 0.55;
+  }
+}
+
+@utility cl-checker {
+  background-color: #fff;
+  background-image: conic-gradient(#e5e5e5 25%, transparent 0 50%, #e5e5e5 0 75%, transparent 0);
+  background-size: 20px 20px;
+}
+
+@utility cl-scan {
+  animation: cl-scan 1.8s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+}
+
+@utility cl-reveal {
+  animation: cl-reveal 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@utility cl-sparkle {
+  animation: cl-sparkle 1.6s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cl-scan,
+  .cl-reveal,
+  .cl-sparkle {
+    animation: none;
+  }
+}

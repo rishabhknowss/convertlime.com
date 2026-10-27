@@ -33,4 +33,12 @@ export const FEATURED_BADGES: FeaturedBadge[] = [
     width: 486,
     height: 105,
   },
+  {
+    name: "ScrollLaunch",
+    href: "https://www.scrolllaunch.com/products/convertlime?ref=badge",
+    src: "https://www.scrolllaunch.com/api/badge/convertlime",
+    alt: "Featured on ScrollLaunch",
+    width: 220,
+    height: 48,
+  },
 ];

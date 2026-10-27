@@ -11,7 +11,7 @@ import {
   CommandList,
 } from "@/components/ui/command";
 import { ToolIcon } from "@/components/tool/tool-icon";
-import { useLocale, useLocalePath } from "@/i18n/locale-provider";
+import { useLocale } from "@/i18n/locale-provider";
 
 type ToolSearchDialogProps = {
   open: boolean;
@@ -21,11 +21,10 @@ type ToolSearchDialogProps = {
 export const ToolSearchDialog = ({ open, onOpenChange }: ToolSearchDialogProps) => {
   const router = useRouter();
   const { ui, tools, categories } = useLocale();
-  const toPath = useLocalePath();
 
-  const go = (slug: string) => {
+  const go = (path: string) => {
     onOpenChange(false);
-    router.push(toPath(`/${slug}`));
+    router.push(path);
   };
 
   return (
@@ -39,7 +38,7 @@ export const ToolSearchDialog = ({ open, onOpenChange }: ToolSearchDialogProps) 
               {tools
                 .filter((tool) => tool.category === category.id)
                 .map((tool) => (
-                  <CommandItem key={tool.slug} value={`${tool.heading} ${tool.keyword}`} onSelect={() => go(tool.slug)}>
+                  <CommandItem key={tool.slug} value={`${tool.heading} ${tool.keyword}`} onSelect={() => go(tool.path)}>
                     <ToolIcon category={tool.category} slug={tool.slug} className="size-4 text-muted-foreground" />
                     {tool.heading}
                   </CommandItem>

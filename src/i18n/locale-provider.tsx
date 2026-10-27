@@ -6,7 +6,7 @@ import type { UiStrings } from "@/i18n/types";
 import type { CategoryId } from "@/data/tools";
 import { en } from "@/i18n/dictionaries/en";
 
-export type ToolLink = { slug: string; heading: string; category: CategoryId; keyword: string };
+export type ToolLink = { slug: string; path: string; heading: string; category: CategoryId; keyword: string };
 
 type LocaleContextValue = {
   locale: Locale;

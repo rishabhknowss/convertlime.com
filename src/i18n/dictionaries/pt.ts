@@ -1,4 +1,5 @@
 import type { Dictionary, ToolVars } from "@/i18n/types";
+import { removeBg } from "@/i18n/remove-bg/pt";
 
 const heading = (v: ToolVars) => {
   if (v.kind === "resize-kb") return `Reduzir imagem para ${v.kb}KB`;
@@ -62,6 +63,8 @@ export const pt: Dictionary = {
       manual: "Abra este site no Chrome ou no Edge e clique no ícone de instalar, à direita da barra de endereço.",
     },
     converter: {
+      paste: "Você também pode colar uma imagem com {key}+V",
+      dropAnywhere: "Solte seus arquivos para adicionar",
       choose: "Escolher {files}",
       addMore: "Adicionar mais {files}",
       dragDrop: "ou arraste e solte aqui",
@@ -85,8 +88,31 @@ export const pt: Dictionary = {
       webpError: "Este navegador não consegue criar arquivos WebP. Tente o Chrome, o Edge ou o Firefox.",
       avifError: "Não foi possível abrir este arquivo AVIF. Tente abrir e salvar de novo antes.",
     },
+    removeBg: {
+      removeButton: "Remover fundo",
+      removeMany: "Remover fundo de {count} imagens",
+      format: "Formato",
+      downloadAs: "Baixar {format}",
+      copy: "Copiar imagem",
+      copied: "Copiada",
+      addMore: "Adicionar mais imagens",
+      jpgNote: "JPG não tem transparência, então o fundo fica branco. Escolha PNG ou WebP para manter o fundo transparente.",
+      preparing: "Preparando o removedor de fundo… {percent}%",
+      preparingNote: "Só na primeira vez: seu navegador baixa a ferramenta uma vez. Depois ela abre na hora, até sem internet. Suas fotos nunca são enviadas.",
+      working: "Removendo o fundo…",
+      failed: "Não foi possível remover o fundo. Na primeira vez é preciso estar conectado à internet; tente de novo.",
+      background: "Fundo",
+      transparent: "Transparente",
+      white: "Branco",
+      black: "Preto",
+      pickColor: "Cor",
+      original: "Original",
+      result: "Resultado",
+      compare: "Comparar original e resultado",
+    },
   },
   categories: {
+    edit: "Editar imagens",
     iphone: "Fotos do iPhone",
     web: "Imagens da web",
     everyday: "Formatos do dia a dia",
@@ -477,4 +503,5 @@ export const pt: Dictionary = {
     body: "O link pode estar desatualizado. Experimente um dos conversores mais usados abaixo ou vá para",
     allTools: "todas as ferramentas",
   },
+  removeBg,
 };

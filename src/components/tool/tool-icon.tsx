@@ -1,7 +1,8 @@
-import { FileText, Globe, Minimize2, Repeat, Scaling, Smartphone } from "lucide-react";
+import { Eraser, FileText, Globe, Minimize2, Repeat, Scaling, Smartphone } from "lucide-react";
 import type { CategoryId } from "@/data/tools";
 
 const ICONS = {
+  edit: Eraser,
   iphone: Smartphone,
   web: Globe,
   everyday: Repeat,
