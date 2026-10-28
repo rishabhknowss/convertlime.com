@@ -30,6 +30,7 @@ export const de: Dictionary = {
       language: "Sprache",
       filesNeverLeave: "Deine Dateien bleiben auf deinem Gerät",
       contact: "Kontakt",
+      openSource: "Open Source auf GitHub",
       footerNote: "Dateien werden auf deinem Gerät umgewandelt und nie hochgeladen.",
     },
     search: {

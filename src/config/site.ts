@@ -2,6 +2,7 @@ export const SITE = {
   name: "ConvertLime",
   url: "https://www.convertlime.com",
   email: "hq.lunarlabs@gmail.com",
+  github: "https://github.com/rishabhknowss/convertlime.com",
   tagline: "Free file converter that runs in your browser",
   description:
     "Convert HEIC, AVIF, WebP, JFIF, PNG and JPG files free in your browser. No sign-up, no upload, no watermark – your files never leave your device.",

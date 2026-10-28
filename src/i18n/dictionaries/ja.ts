@@ -28,6 +28,7 @@ export const ja: Dictionary = {
       language: "言語",
       filesNeverLeave: "ファイルが端末の外に出ることはありません",
       contact: "お問い合わせ",
+      openSource: "GitHubでソースを公開中",
       footerNote: "ファイルはお使いの端末で変換され、アップロードされることはありません。",
     },
     search: {

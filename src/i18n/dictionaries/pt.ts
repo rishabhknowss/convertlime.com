@@ -35,6 +35,7 @@ export const pt: Dictionary = {
       language: "Idioma",
       filesNeverLeave: "Seus arquivos nunca saem do seu aparelho",
       contact: "Contato",
+      openSource: "Código aberto no GitHub",
       footerNote: "Os arquivos são convertidos no seu aparelho e nunca são enviados para a internet.",
     },
     search: {

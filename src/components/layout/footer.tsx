@@ -14,6 +14,7 @@ export const Footer = ({ locale }: { locale: Locale }) => {
     [localePath(locale, "/privacy"), ui.nav.privacy],
     ["/feed.xml", "RSS"],
     ["/llms.txt", "llms.txt"],
+    [SITE.github, "GitHub"],
     [`mailto:${SITE.email}`, ui.nav.contact],
   ];
   return (

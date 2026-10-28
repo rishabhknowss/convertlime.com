@@ -28,6 +28,7 @@ export const ko: Dictionary = {
       language: "언어",
       filesNeverLeave: "파일이 내 기기 밖으로 나가지 않아요",
       contact: "문의",
+      openSource: "GitHub에서 오픈소스로 공개",
       footerNote: "파일은 내 기기에서 변환되며 어디에도 업로드되지 않아요.",
     },
     search: {
