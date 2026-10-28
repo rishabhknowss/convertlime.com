@@ -38,6 +38,7 @@ export type UiStrings = {
     language: string;
     filesNeverLeave: string;
     contact: string;
+    openSource: string;
     footerNote: string;
   };
   search: { trigger: string; title: string; placeholder: string; empty: string };

@@ -28,6 +28,7 @@ export const zh: Dictionary = {
       language: "语言",
       filesNeverLeave: "文件始终留在你的设备上",
       contact: "联系我们",
+      openSource: "在 GitHub 上开源",
       footerNote: "文件在你的设备上完成转换，绝不上传。",
     },
     search: {

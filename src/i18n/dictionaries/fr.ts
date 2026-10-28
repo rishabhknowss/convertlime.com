@@ -33,6 +33,7 @@ export const fr: Dictionary = {
       language: "Langue",
       filesNeverLeave: "Vos fichiers ne quittent jamais votre appareil",
       contact: "Contact",
+      openSource: "Code source sur GitHub",
       footerNote: "Les fichiers sont convertis sur votre appareil et ne sont jamais envoyés en ligne.",
     },
     search: {

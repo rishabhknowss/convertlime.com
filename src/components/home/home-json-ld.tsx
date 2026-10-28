@@ -18,6 +18,7 @@ export const HomeJsonLd = ({ locale }: { locale: Locale }) => {
           url: SITE.url,
           logo: `${SITE.url}/brand/icon-512.png`,
           email: SITE.email,
+          sameAs: [SITE.github],
           contactPoint: { "@type": "ContactPoint", contactType: "customer support", email: SITE.email },
         },
         {
