@@ -23,6 +23,7 @@ const manifest = (): MetadataRoute.Manifest => ({
     { name: "HEIC to JPG", url: "/heic-to-jpg", icons: [{ src: "/brand/icon-192.png", sizes: "192x192" }] },
     { name: "Compress image", url: "/compress-image", icons: [{ src: "/brand/icon-192.png", sizes: "192x192" }] },
     { name: "Image to PDF", url: "/image-to-pdf", icons: [{ src: "/brand/icon-192.png", sizes: "192x192" }] },
+    { name: "Invoice generator", url: "/invoice-generator", icons: [{ src: "/brand/icon-192.png", sizes: "192x192" }] },
   ],
 });
 

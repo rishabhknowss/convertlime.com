@@ -20,7 +20,7 @@ export const ToolJsonLd = ({ tool, content, locale }: ToolJsonLdProps) => {
           name: heading,
           url,
           inLanguage: LOCALE_META[locale].hreflang,
-          applicationCategory: "MultimediaApplication",
+          applicationCategory: tool.kind === "invoice" ? "BusinessApplication" : "MultimediaApplication",
           operatingSystem: "Any (runs in the browser)",
           description: toolDescription(tool, locale),
           offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },

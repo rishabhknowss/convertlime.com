@@ -1,5 +1,6 @@
 import type { Dictionary, FormatVars, ToolVars } from "@/i18n/types";
 import { removeBg } from "@/i18n/remove-bg/en";
+import { invoice } from "@/i18n/invoice/en";
 
 const AN = new Set(["avif", "ico", "svg"]);
 const article = (f: FormatVars) => (AN.has(f.id) ? "an" : "a");
@@ -111,9 +112,60 @@ export const en: Dictionary = {
       result: "Result",
       compare: "Compare original and result",
     },
+    invoice: {
+      documentTitle: "Invoice",
+      from: "From",
+      billTo: "Bill to",
+      number: "Invoice no.",
+      issued: "Date",
+      due: "Due date",
+      description: "Description",
+      quantity: "Qty",
+      rate: "Price",
+      amount: "Amount",
+      subtotal: "Subtotal",
+      discount: "Discount",
+      tax: "Tax",
+      shipping: "Shipping",
+      total: "Total",
+      paid: "Amount paid",
+      balance: "Balance due",
+      notes: "Notes",
+      terms: "Payment terms",
+      fromNamePlaceholder: "Your name or business",
+      fromDetailsPlaceholder: "Address, email, phone, tax ID",
+      toNamePlaceholder: "Client name",
+      toDetailsPlaceholder: "Client address and email",
+      itemPlaceholder: "What did you sell or do?",
+      notesPlaceholder: "Thank you for your business!",
+      termsPlaceholder: "Bank details, payment link, or how many days they have to pay",
+      addItem: "Add a line",
+      removeItem: "Remove line",
+      addLogo: "Add logo",
+      removeLogo: "Remove logo",
+      logoError: "That image could not be used as a logo. Try a PNG or JPG.",
+      currency: "Currency",
+      color: "Color",
+      customColor: "Custom color",
+      newInvoice: "New invoice",
+      newInvoiceDone: "New invoice started. Your details and logo were kept.",
+      downloadPdf: "Download PDF",
+      print: "Print",
+      saved: "Saved on this device",
+      pdfFailed: "The PDF could not be made. Try Print and choose Save as PDF.",
+      printInstead: "Some text needs a font the quick PDF cannot use, so your print window is opening. Choose Save as PDF.",
+      totalDue: "Total due",
+      template: "Template",
+      templates: { classic: "Classic", studio: "Studio", midnight: "Midnight", editorial: "Editorial", bold: "Bold" },
+      addCover: "Add a cover image",
+      uploadCover: "Upload your own",
+      removeCover: "Remove cover",
+      coverError: "That image could not be used as a cover. Try a JPG or PNG.",
+    },
   },
   categories: {
     edit: "Edit images",
+    docs: "Documents",
     iphone: "iPhone photos",
     web: "Web images",
     everyday: "Everyday formats",
@@ -223,10 +275,11 @@ export const en: Dictionary = {
   },
   tool: {
     heading,
+    h1: (v) => (v.kind === "convert" || v.kind === "to-pdf" ? `Free ${heading(v)}` : `${heading(v)} Online Free`),
     title: (v) => {
-      if (v.kind === "resize-kb") return `${heading(v)} Online – Free, Exact Size`;
-      if (v.kind === "compress") return `${heading(v)} Online – Free, No Upload`;
-      return `${heading(v)} – Free, Private, No Upload`;
+      if (v.kind === "resize-kb") return `${heading(v)} Online – Free, No Sign-up`;
+      if (v.kind === "compress") return `${heading(v)} Online – Free, No Sign-up`;
+      return `${heading(v)} – Free, No Sign-up, No Upload`;
     },
     description: (v) => {
       if (v.kind === "resize-kb")
@@ -465,6 +518,7 @@ export const en: Dictionary = {
       { slug: "heic-to-jpg", text: "open iPhone photos anywhere" },
       { slug: "compress-image", text: "make photos smaller for email and uploads" },
       { slug: "resize-image-to-50kb", text: "for exam and job application forms" },
+      { slug: "invoice-generator", text: "make and download a PDF invoice" },
     ],
   },
   privacy: {
@@ -490,4 +544,5 @@ export const en: Dictionary = {
     allTools: "all tools",
   },
   removeBg,
+  invoice,
 };

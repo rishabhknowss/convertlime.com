@@ -5,8 +5,7 @@ import { getPosts, postLocales } from "@/lib/blog";
 import { LOCALES, LOCALE_META, type Locale } from "@/i18n/config";
 import { languageAlternates, pageUrl, toolLanguageAlternates, toolUrl } from "@/lib/seo";
 
-const LAST_UPDATED = "2026-10-25";
-const REMOVE_BG_UPDATED = "2026-10-27";
+const LAST_UPDATED = "2026-10-29";
 
 type Entry = MetadataRoute.Sitemap[number];
 
@@ -22,9 +21,9 @@ const allLanguages = (path: string, changeFrequency: Entry["changeFrequency"], p
 const toolEntries = (tool: Tool): Entry[] =>
   LOCALES.map((locale) => ({
     url: toolUrl(tool, locale),
-    lastModified: tool.kind === "remove-bg" ? REMOVE_BG_UPDATED : LAST_UPDATED,
+    lastModified: LAST_UPDATED,
     changeFrequency: "monthly",
-    priority: tool.kind === "remove-bg" ? 1 : tool.featured ? 0.9 : 0.7,
+    priority: tool.kind === "remove-bg" || tool.kind === "invoice" ? 1 : tool.featured ? 0.9 : 0.7,
     alternates: { languages: toolLanguageAlternates(tool) },
   }));
 

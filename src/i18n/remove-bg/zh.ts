@@ -2,7 +2,7 @@ import type { Dictionary } from "@/i18n/types";
 
 export const removeBg: Dictionary["removeBg"] = {
   heading: "去背 – 免费在线去除图片背景",
-  title: "去背 – 免费在线去除图片背景，无需上传",
+  title: "去背 – 免费在线去除图片背景，无需注册",
   description:
     "免费在线去背，几秒得到透明背景PNG。无需注册，不加水印，图片不上传。人像、商品、Logo都能一键去除背景，也支持换白底。",
   lead: "免费去背，把照片拖进来，几秒后就能拿到透明背景的图片。这个去背工具直接在你自己的设备上运行，图片绝不上传。",

@@ -8,9 +8,10 @@ import { useLocale } from "@/i18n/locale-provider";
 export const GithubLink = () => {
   const { ui } = useLocale();
   return (
-    <Button variant="ghost" size="icon" asChild>
+    <Button variant="ghost" asChild className="gap-2 px-2.5 text-muted-foreground hover:text-foreground">
       <a href={SITE.github} target="_blank" rel="noopener" aria-label={ui.nav.openSource} title={ui.nav.openSource}>
-        <GithubIcon />
+        <span className="hidden text-sm font-normal md:inline">GitHub</span>
+        <GithubIcon className="text-foreground" />
       </a>
     </Button>
   );

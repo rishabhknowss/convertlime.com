@@ -1,5 +1,6 @@
 import type { Dictionary, ToolVars } from "@/i18n/types";
 import { removeBg } from "@/i18n/remove-bg/ja";
+import { invoice } from "@/i18n/invoice/ja";
 
 const heading = (v: ToolVars) => {
   if (v.kind === "compress") return "画像圧縮";
@@ -108,9 +109,60 @@ export const ja: Dictionary = {
       result: "透過後",
       compare: "元の画像と透過後を比べる",
     },
+    invoice: {
+      documentTitle: "請求書",
+      from: "請求元",
+      billTo: "請求先",
+      number: "請求書番号",
+      issued: "発行日",
+      due: "支払期限",
+      description: "品目",
+      quantity: "数量",
+      rate: "単価",
+      amount: "金額",
+      subtotal: "小計",
+      discount: "値引き",
+      tax: "消費税",
+      shipping: "送料",
+      total: "合計",
+      paid: "入金済み",
+      balance: "残額",
+      notes: "備考",
+      terms: "お支払い条件",
+      fromNamePlaceholder: "お名前または会社名・屋号",
+      fromDetailsPlaceholder: "住所、メール、電話番号、登録番号",
+      toNamePlaceholder: "請求先の名前",
+      toDetailsPlaceholder: "請求先の住所とメール",
+      itemPlaceholder: "販売した商品や作業の内容",
+      notesPlaceholder: "いつもありがとうございます。",
+      termsPlaceholder: "振込先、支払いリンク、支払期限など",
+      addItem: "行を追加",
+      removeItem: "行を削除",
+      addLogo: "ロゴを追加",
+      removeLogo: "ロゴを削除",
+      logoError: "この画像はロゴに使えません。PNGかJPGをお試しください。",
+      currency: "通貨",
+      color: "色",
+      customColor: "カスタムカラー",
+      newInvoice: "新しい請求書",
+      newInvoiceDone: "新しい請求書を作成しました。あなたの情報とロゴは引き継がれています。",
+      downloadPdf: "PDFをダウンロード",
+      print: "印刷",
+      saved: "この端末に保存済み",
+      pdfFailed: "PDFを作成できませんでした。「印刷」を開き、「PDFに保存」を選んでください。",
+      printInstead: "一部の文字に簡易PDFでは使えないフォントが必要なため、印刷画面を開きます。「PDFに保存」を選んでください。",
+      totalDue: "ご請求金額",
+      template: "テンプレート",
+      templates: { classic: "クラシック", studio: "スタジオ", midnight: "ミッドナイト", editorial: "エディトリアル", bold: "ボールド" },
+      addCover: "カバー画像を追加",
+      uploadCover: "自分の画像をアップロード",
+      removeCover: "カバーを削除",
+      coverError: "この画像はカバーに使えません。JPGかPNGをお試しください。",
+    },
   },
   categories: {
     edit: "画像を編集",
+    docs: "書類",
     iphone: "iPhoneの写真",
     web: "Web画像",
     everyday: "よく使う形式",
@@ -220,9 +272,10 @@ export const ja: Dictionary = {
   },
   tool: {
     heading,
+    h1: (v) => `${heading(v)}（無料・登録不要）`,
     title: (v) => {
-      if (v.kind === "resize-kb") return `${heading(v)}｜無料・サイズぴったり`;
-      return `${heading(v)}｜無料・アップロード不要`;
+      if (v.kind === "resize-kb") return `${heading(v)}｜無料・登録不要・サイズぴったり`;
+      return `${heading(v)}｜無料・登録不要・アップロード不要`;
     },
     description: (v) => {
       if (v.kind === "resize-kb")
@@ -469,6 +522,7 @@ export const ja: Dictionary = {
       { slug: "heic-to-jpg", text: "iPhoneの写真をどこでも開けるように" },
       { slug: "compress-image", text: "メールやアップロード用に写真を小さく" },
       { slug: "resize-image-to-50kb", text: "試験や求人応募のフォーム用に" },
+      { slug: "invoice-generator", text: "請求書を作成してPDFでダウンロード" },
     ],
   },
   privacy: {
@@ -494,4 +548,5 @@ export const ja: Dictionary = {
     allTools: "すべてのツール",
   },
   removeBg,
+  invoice,
 };

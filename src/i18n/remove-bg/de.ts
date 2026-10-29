@@ -2,7 +2,7 @@ import type { Dictionary } from "@/i18n/types";
 
 export const removeBg: Dictionary["removeBg"] = {
   heading: "Hintergrund entfernen – kostenlos und ohne Upload",
-  title: "Hintergrund entfernen kostenlos – Freistellen ohne Upload",
+  title: "Hintergrund entfernen kostenlos – Freistellen ohne Anmeldung",
   description:
     "Hintergrund entfernen kostenlos: Bild freistellen und als transparentes PNG laden – ohne Anmeldung, ohne Upload, ohne Wasserzeichen. Für Fotos & Logos.",
   lead: "Hintergrund entfernen in wenigen Sekunden: Zieh ein Foto hierher und du bekommst es mit transparentem Hintergrund zurück. Kostenlos, ohne Anmeldung – und deine Bilder bleiben auf deinem Gerät.",

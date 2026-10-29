@@ -1,6 +1,7 @@
 import type { FormatId } from "@/data/formats";
 import type { Dictionary, ToolVars } from "@/i18n/types";
 import { removeBg } from "@/i18n/remove-bg/fr";
+import { invoice } from "@/i18n/invoice/fr";
 
 const ELIDED = new Set<FormatId>(["avif", "ico"]);
 const TheFormat = (id: FormatId, label: string) => (ELIDED.has(id) ? `L'${label}` : `Le ${label}`);
@@ -113,9 +114,60 @@ export const fr: Dictionary = {
       result: "Résultat",
       compare: "Comparer l’original et le résultat",
     },
+    invoice: {
+      documentTitle: "Facture",
+      from: "De",
+      billTo: "Facturer à",
+      number: "N° de facture",
+      issued: "Date",
+      due: "Échéance",
+      description: "Description",
+      quantity: "Qté",
+      rate: "Prix",
+      amount: "Montant",
+      subtotal: "Sous-total",
+      discount: "Remise",
+      tax: "TVA",
+      shipping: "Livraison",
+      total: "Total",
+      paid: "Montant réglé",
+      balance: "Reste à payer",
+      notes: "Notes",
+      terms: "Conditions de paiement",
+      fromNamePlaceholder: "Votre nom ou entreprise",
+      fromDetailsPlaceholder: "Adresse, e-mail, téléphone, n° SIRET ou TVA",
+      toNamePlaceholder: "Nom du client",
+      toDetailsPlaceholder: "Adresse et e-mail du client",
+      itemPlaceholder: "Qu’avez-vous vendu ou réalisé ?",
+      notesPlaceholder: "Merci pour votre confiance !",
+      termsPlaceholder: "Coordonnées bancaires, lien de paiement ou délai de paiement",
+      addItem: "Ajouter une ligne",
+      removeItem: "Supprimer la ligne",
+      addLogo: "Ajouter un logo",
+      removeLogo: "Retirer le logo",
+      logoError: "Cette image ne peut pas servir de logo. Essayez un PNG ou un JPG.",
+      currency: "Devise",
+      color: "Couleur",
+      customColor: "Couleur personnalisée",
+      newInvoice: "Nouvelle facture",
+      newInvoiceDone: "Nouvelle facture créée. Vos coordonnées et votre logo ont été conservés.",
+      downloadPdf: "Télécharger le PDF",
+      print: "Imprimer",
+      saved: "Enregistré sur cet appareil",
+      pdfFailed: "Le PDF n’a pas pu être créé. Essayez Imprimer, puis choisissez Enregistrer au format PDF.",
+      printInstead: "Une partie du texte demande une police que le PDF rapide ne peut pas utiliser : la fenêtre d’impression s’ouvre. Choisissez Enregistrer au format PDF.",
+      totalDue: "Total à payer",
+      template: "Modèle",
+      templates: { classic: "Classique", studio: "Studio", midnight: "Minuit", editorial: "Éditorial", bold: "Audacieux" },
+      addCover: "Ajouter une image de couverture",
+      uploadCover: "Importer la vôtre",
+      removeCover: "Retirer la couverture",
+      coverError: "Cette image ne peut pas servir de couverture. Essayez un JPG ou un PNG.",
+    },
   },
   categories: {
     edit: "Modifier des images",
+    docs: "Documents",
     iphone: "Photos d'iPhone",
     web: "Images du web",
     everyday: "Formats courants",
@@ -225,9 +277,10 @@ export const fr: Dictionary = {
   },
   tool: {
     heading,
+    h1: (v) => `${heading(v)} gratuitement`,
     title: (v) => {
-      if (v.kind === "resize-kb") return `${heading(v)} en ligne – Taille exacte`;
-      if (v.kind === "compress") return `${heading(v)} en ligne gratuitement`;
+      if (v.kind === "resize-kb") return `${heading(v)} en ligne – Gratuit, sans inscription`;
+      if (v.kind === "compress") return `${heading(v)} en ligne – Gratuit, sans inscription`;
       if (v.imageToPdf) return "Convertir une image en PDF – Gratuit, sans inscription";
       return `${heading(v)} – Gratuit et sans inscription`;
     },
@@ -504,6 +557,7 @@ export const fr: Dictionary = {
       { slug: "heic-to-jpg", text: "ouvrir vos photos d'iPhone partout" },
       { slug: "compress-image", text: "alléger vos photos pour les e-mails et les formulaires" },
       { slug: "resize-image-to-50kb", text: "pour les formulaires d'examen et de candidature" },
+      { slug: "invoice-generator", text: "faire une facture et la télécharger en PDF" },
     ],
   },
   privacy: {
@@ -532,4 +586,5 @@ export const fr: Dictionary = {
     allTools: "tous les outils",
   },
   removeBg,
+  invoice,
 };

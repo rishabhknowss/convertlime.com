@@ -1,8 +1,8 @@
 import type { Dictionary } from "@/i18n/types";
 
 export const removeBg: Dictionary["removeBg"] = {
-  heading: "Enlever le fond d’une image",
-  title: "Enlever le fond d’une image – Gratuit, sans envoi en ligne",
+  heading: "Enlever le fond d’une image gratuitement",
+  title: "Enlever le fond d’une image – Gratuit, sans inscription",
   description:
     "Enlever le fond d’une image gratuitement : obtenez un PNG à fond transparent, sans inscription, sans filigrane. Vos photos restent sur votre appareil.",
   lead: "Enlever le fond d’une image n’a jamais été aussi simple : déposez votre photo et récupérez-la avec un fond transparent. Gratuit, sans inscription, et vos photos ne quittent jamais votre téléphone ou votre ordinateur.",

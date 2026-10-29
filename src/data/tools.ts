@@ -1,9 +1,9 @@
 import type { FormatId } from "@/data/formats";
 import { localePath, type Locale } from "@/i18n/config";
 
-export type ToolKind = "convert" | "compress" | "resize-kb" | "to-pdf" | "remove-bg";
+export type ToolKind = "convert" | "compress" | "resize-kb" | "to-pdf" | "remove-bg" | "invoice";
 
-export type CategoryId = "edit" | "iphone" | "web" | "everyday" | "compress" | "pdf";
+export type CategoryId = "edit" | "docs" | "iphone" | "web" | "everyday" | "compress" | "pdf";
 
 export type Tool = {
   slug: string;
@@ -20,6 +20,7 @@ export type Tool = {
 
 export const CATEGORIES: { id: CategoryId; label: string }[] = [
   { id: "edit", label: "Edit images" },
+  { id: "docs", label: "Documents" },
   { id: "iphone", label: "iPhone photos" },
   { id: "web", label: "Web images" },
   { id: "everyday", label: "Everyday formats" },
@@ -79,10 +80,38 @@ const removeBackground: Tool = {
   },
 };
 
-export const TOOL_ALIASES: Record<string, string> = { "remove-bg": "remove-background" };
+const invoiceGenerator: Tool = {
+  slug: "invoice-generator",
+  kind: "invoice",
+  category: "docs",
+  title: "Invoice generator",
+  keyword: "invoice generator",
+  from: ["pdf"],
+  to: "pdf",
+  featured: true,
+  localSlugs: {
+    es: "generador-de-facturas",
+    pt: "gerador-de-invoice",
+    fr: "faire-une-facture",
+    de: "rechnung-schreiben",
+    ja: "請求書作成",
+    ko: "인보이스-양식",
+    zh: "发票生成器",
+  },
+};
+
+export const TOOL_ALIASES: Record<string, string> = {
+  "remove-bg": "remove-background",
+  "invoice-maker": "invoice-generator",
+  "gerador-de-fatura": "invoice-generator",
+  "generateur-de-facture": "invoice-generator",
+  "rechnung-erstellen": "invoice-generator",
+  "인보이스-만들기": "invoice-generator",
+};
 
 export const TOOLS: Tool[] = [
   removeBackground,
+  invoiceGenerator,
   convert("heic", "jpg", "iphone", true),
   convert("heic", "png", "iphone", true),
   toPdf("heic", "iphone"),

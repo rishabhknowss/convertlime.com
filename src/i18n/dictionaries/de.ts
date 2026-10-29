@@ -1,5 +1,6 @@
 import type { Dictionary, ToolVars } from "@/i18n/types";
 import { removeBg } from "@/i18n/remove-bg/de";
+import { invoice } from "@/i18n/invoice/de";
 
 const heading = (v: ToolVars) => {
   if (v.kind === "resize-kb") return `Bild auf ${v.kb} KB verkleinern`;
@@ -112,9 +113,60 @@ export const de: Dictionary = {
       result: "Ergebnis",
       compare: "Original und Ergebnis vergleichen",
     },
+    invoice: {
+      documentTitle: "Rechnung",
+      from: "Von",
+      billTo: "Rechnung an",
+      number: "Rechnungsnr.",
+      issued: "Datum",
+      due: "Fällig am",
+      description: "Beschreibung",
+      quantity: "Menge",
+      rate: "Preis",
+      amount: "Betrag",
+      subtotal: "Zwischensumme",
+      discount: "Rabatt",
+      tax: "MwSt.",
+      shipping: "Versand",
+      total: "Gesamt",
+      paid: "Bereits bezahlt",
+      balance: "Offener Betrag",
+      notes: "Notizen",
+      terms: "Zahlungsbedingungen",
+      fromNamePlaceholder: "Dein Name oder deine Firma",
+      fromDetailsPlaceholder: "Adresse, E-Mail, Telefon, USt-IdNr.",
+      toNamePlaceholder: "Name des Kunden",
+      toDetailsPlaceholder: "Adresse und E-Mail des Kunden",
+      itemPlaceholder: "Was hast du verkauft oder geleistet?",
+      notesPlaceholder: "Vielen Dank für Ihren Auftrag!",
+      termsPlaceholder: "Bankverbindung, Zahlungslink oder Zahlungsziel",
+      addItem: "Position hinzufügen",
+      removeItem: "Position entfernen",
+      addLogo: "Logo hinzufügen",
+      removeLogo: "Logo entfernen",
+      logoError: "Dieses Bild kann nicht als Logo verwendet werden. Versuche es mit PNG oder JPG.",
+      currency: "Währung",
+      color: "Farbe",
+      customColor: "Eigene Farbe",
+      newInvoice: "Neue Rechnung",
+      newInvoiceDone: "Neue Rechnung begonnen. Deine Daten und dein Logo wurden übernommen.",
+      downloadPdf: "PDF herunterladen",
+      print: "Drucken",
+      saved: "Auf diesem Gerät gespeichert",
+      pdfFailed: "Das PDF konnte nicht erstellt werden. Versuche Drucken und wähle Als PDF speichern.",
+      printInstead: "Ein Teil des Textes braucht eine Schrift, die das schnelle PDF nicht nutzen kann, deshalb öffnet sich das Druckfenster. Wähle Als PDF speichern.",
+      totalDue: "Fälliger Betrag",
+      template: "Vorlage",
+      templates: { classic: "Klassisch", studio: "Studio", midnight: "Mitternacht", editorial: "Editorial", bold: "Kräftig" },
+      addCover: "Titelbild hinzufügen",
+      uploadCover: "Eigenes hochladen",
+      removeCover: "Titelbild entfernen",
+      coverError: "Dieses Bild kann nicht als Titelbild verwendet werden. Versuche es mit JPG oder PNG.",
+    },
   },
   categories: {
     edit: "Bilder bearbeiten",
+    docs: "Dokumente",
     iphone: "iPhone-Fotos",
     web: "Bilder aus dem Web",
     everyday: "Alltägliche Formate",
@@ -224,10 +276,11 @@ export const de: Dictionary = {
   },
   tool: {
     heading,
+    h1: (v) => `${heading(v)} – kostenlos`,
     title: (v) => {
-      if (v.kind === "resize-kb") return `${heading(v)} – online, kostenlos, exakt`;
-      if (v.kind === "compress") return "Bild online komprimieren – kostenlos, ohne Upload";
-      return `${heading(v)} – kostenlos & ohne Upload`;
+      if (v.kind === "resize-kb") return `${heading(v)} – kostenlos, ohne Anmeldung`;
+      if (v.kind === "compress") return "Bild online komprimieren – kostenlos, ohne Anmeldung";
+      return `${heading(v)} – kostenlos, ohne Anmeldung & Upload`;
     },
     description: (v) => {
       if (v.kind === "resize-kb")
@@ -499,6 +552,7 @@ export const de: Dictionary = {
       { slug: "heic-to-jpg", text: "iPhone-Fotos überall öffnen" },
       { slug: "compress-image", text: "Fotos für E-Mails und Uploads verkleinern" },
       { slug: "resize-image-to-50kb", text: "für Prüfungs- und Bewerbungsformulare" },
+      { slug: "invoice-generator", text: "eine Rechnung schreiben und als PDF laden" },
     ],
   },
   privacy: {
@@ -527,4 +581,5 @@ export const de: Dictionary = {
     allTools: "allen Tools",
   },
   removeBg,
+  invoice,
 };

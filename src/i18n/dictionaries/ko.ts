@@ -1,5 +1,6 @@
 import type { Dictionary, ToolVars } from "@/i18n/types";
 import { removeBg } from "@/i18n/remove-bg/ko";
+import { invoice } from "@/i18n/invoice/ko";
 
 const heading = (v: ToolVars) => {
   if (v.kind === "resize-kb") return `사진 ${v.kb}KB로 줄이기`;
@@ -108,9 +109,60 @@ export const ko: Dictionary = {
       result: "결과",
       compare: "원본과 결과 비교",
     },
+    invoice: {
+      documentTitle: "청구서",
+      from: "공급자",
+      billTo: "청구 대상",
+      number: "청구서 번호",
+      issued: "발행일",
+      due: "결제 기한",
+      description: "품목",
+      quantity: "수량",
+      rate: "단가",
+      amount: "금액",
+      subtotal: "소계",
+      discount: "할인",
+      tax: "부가세",
+      shipping: "배송비",
+      total: "합계",
+      paid: "받은 금액",
+      balance: "남은 금액",
+      notes: "메모",
+      terms: "결제 조건",
+      fromNamePlaceholder: "내 이름 또는 상호",
+      fromDetailsPlaceholder: "주소, 이메일, 전화번호, 사업자등록번호",
+      toNamePlaceholder: "거래처 이름",
+      toDetailsPlaceholder: "거래처 주소와 이메일",
+      itemPlaceholder: "판매한 상품이나 한 일",
+      notesPlaceholder: "거래해 주셔서 감사합니다!",
+      termsPlaceholder: "입금 계좌, 결제 링크 또는 결제 기한",
+      addItem: "줄 추가",
+      removeItem: "줄 삭제",
+      addLogo: "로고 추가",
+      removeLogo: "로고 삭제",
+      logoError: "이 이미지는 로고로 쓸 수 없어요. PNG나 JPG로 해 보세요.",
+      currency: "통화",
+      color: "색상",
+      customColor: "사용자 지정 색상",
+      newInvoice: "새 청구서",
+      newInvoiceDone: "새 청구서를 시작했어요. 내 정보와 로고는 그대로 남겨 뒀어요.",
+      downloadPdf: "PDF 다운로드",
+      print: "인쇄",
+      saved: "이 기기에 저장됨",
+      pdfFailed: "PDF를 만들지 못했어요. 인쇄를 누른 뒤 PDF로 저장을 선택해 보세요.",
+      printInstead: "일부 글자에 빠른 PDF가 쓸 수 없는 글꼴이 필요해서 인쇄 창을 열어요. PDF로 저장을 선택하세요.",
+      totalDue: "청구 금액",
+      template: "템플릿",
+      templates: { classic: "클래식", studio: "스튜디오", midnight: "미드나잇", editorial: "에디토리얼", bold: "볼드" },
+      addCover: "커버 이미지 추가",
+      uploadCover: "직접 올리기",
+      removeCover: "커버 삭제",
+      coverError: "이 이미지는 커버로 쓸 수 없어요. JPG나 PNG로 해 보세요.",
+    },
   },
   categories: {
     edit: "이미지 편집",
+    docs: "문서",
     iphone: "아이폰 사진",
     web: "웹 이미지",
     everyday: "자주 쓰는 형식",
@@ -220,10 +272,11 @@ export const ko: Dictionary = {
   },
   tool: {
     heading,
+    h1: (v) => `무료 ${heading(v)}`,
     title: (v) => {
-      if (v.kind === "resize-kb") return `${heading(v)} – 무료, 정확한 용량`;
-      if (v.kind === "compress") return `${heading(v)} – 무료, 업로드 없음`;
-      return `${heading(v)} – 무료, 업로드 없이 안전하게`;
+      if (v.kind === "resize-kb") return `${heading(v)} – 무료, 회원가입 없이 정확한 용량`;
+      if (v.kind === "compress") return `${heading(v)} – 무료, 회원가입·업로드 없음`;
+      return `${heading(v)} – 무료, 회원가입·업로드 없이`;
     },
     description: (v) => {
       if (v.kind === "resize-kb")
@@ -465,6 +518,7 @@ export const ko: Dictionary = {
       { slug: "heic-to-jpg", text: "아이폰 사진을 어디서나 열기" },
       { slug: "compress-image", text: "이메일과 업로드용으로 사진 용량 줄이기" },
       { slug: "resize-image-to-50kb", text: "시험 접수와 입사 지원서용" },
+      { slug: "invoice-generator", text: "인보이스를 만들고 PDF로 저장" },
     ],
   },
   privacy: {
@@ -490,4 +544,5 @@ export const ko: Dictionary = {
     allTools: "전체 도구",
   },
   removeBg,
+  invoice,
 };

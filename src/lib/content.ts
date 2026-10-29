@@ -84,5 +84,7 @@ export const toolContent = (tool: Tool, locale: Locale): ToolContent => {
   if (tool.kind === "to-pdf") return pdfContent(tool, dict);
   if (tool.kind === "remove-bg")
     return { steps: dict.removeBg.steps, sections: dict.removeBg.sections, faqs: dict.removeBg.faqs };
+  if (tool.kind === "invoice")
+    return { steps: dict.invoice.steps, sections: dict.invoice.sections, faqs: dict.invoice.faqs };
   return convertContent(tool, locale, dict);
 };
