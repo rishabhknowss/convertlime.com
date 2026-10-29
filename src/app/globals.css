@@ -229,6 +229,26 @@
   }
 }
 
+@font-face {
+  font-family: "Invoice Serif";
+  font-weight: 400;
+  font-display: swap;
+  src: url("https://cdn.jsdelivr.net/gh/notofonts/notofonts.github.io@NotoSerif-v2.013/fonts/NotoSerif/hinted/ttf/NotoSerif-Regular.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Invoice Serif";
+  font-weight: 600 800;
+  font-display: swap;
+  src: url("https://cdn.jsdelivr.net/gh/notofonts/notofonts.github.io@NotoSerif-v2.013/fonts/NotoSerif/hinted/ttf/NotoSerif-Bold.ttf") format("truetype");
+}
+
+.invoice-serif,
+.invoice-serif input,
+.invoice-serif textarea {
+  font-family: "Invoice Serif", Georgia, "Times New Roman", serif;
+}
+
 .invoice-sheet {
   color-scheme: light;
   --background: oklch(0.99 0 0);

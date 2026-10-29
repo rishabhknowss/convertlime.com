@@ -2,7 +2,7 @@ import type { Dictionary } from "@/i18n/types";
 
 export const removeBg: Dictionary["removeBg"] = {
   heading: "배경제거 – 무료로 사진 누끼 따기",
-  title: "배경제거 – 무료 누끼따기, 업로드 없이",
+  title: "배경제거 – 무료 누끼따기, 회원가입 없이",
   description:
     "사진 배경제거를 무료로 하세요. 회원가입·워터마크 없이 누끼를 따서 배경이 투명한 PNG로 받아요. 사진은 업로드되지 않아요.",
   lead: "배경제거, 이제 사진을 넣기만 하면 끝나요. 몇 초 뒤면 배경이 투명한 사진을 받을 수 있어요. 내 기기에서 바로 작동하는 무료 누끼 따는 사이트라서 사진이 어디에도 업로드되지 않아요.",

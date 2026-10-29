@@ -143,6 +143,7 @@ export const ko: Dictionary = {
       logoError: "이 이미지는 로고로 쓸 수 없어요. PNG나 JPG로 해 보세요.",
       currency: "통화",
       color: "색상",
+      customColor: "사용자 지정 색상",
       newInvoice: "새 청구서",
       newInvoiceDone: "새 청구서를 시작했어요. 내 정보와 로고는 그대로 남겨 뒀어요.",
       downloadPdf: "PDF 다운로드",
@@ -151,6 +152,12 @@ export const ko: Dictionary = {
       pdfFailed: "PDF를 만들지 못했어요. 인쇄를 누른 뒤 PDF로 저장을 선택해 보세요.",
       printInstead: "일부 글자에 빠른 PDF가 쓸 수 없는 글꼴이 필요해서 인쇄 창을 열어요. PDF로 저장을 선택하세요.",
       totalDue: "청구 금액",
+      template: "템플릿",
+      templates: { classic: "클래식", studio: "스튜디오", midnight: "미드나잇", editorial: "에디토리얼", bold: "볼드" },
+      addCover: "커버 이미지 추가",
+      uploadCover: "직접 올리기",
+      removeCover: "커버 삭제",
+      coverError: "이 이미지는 커버로 쓸 수 없어요. JPG나 PNG로 해 보세요.",
     },
   },
   categories: {
@@ -265,10 +272,11 @@ export const ko: Dictionary = {
   },
   tool: {
     heading,
+    h1: (v) => `무료 ${heading(v)}`,
     title: (v) => {
-      if (v.kind === "resize-kb") return `${heading(v)} – 무료, 정확한 용량`;
-      if (v.kind === "compress") return `${heading(v)} – 무료, 업로드 없음`;
-      return `${heading(v)} – 무료, 업로드 없이 안전하게`;
+      if (v.kind === "resize-kb") return `${heading(v)} – 무료, 회원가입 없이 정확한 용량`;
+      if (v.kind === "compress") return `${heading(v)} – 무료, 회원가입·업로드 없음`;
+      return `${heading(v)} – 무료, 회원가입·업로드 없이`;
     },
     description: (v) => {
       if (v.kind === "resize-kb")
@@ -510,6 +518,7 @@ export const ko: Dictionary = {
       { slug: "heic-to-jpg", text: "아이폰 사진을 어디서나 열기" },
       { slug: "compress-image", text: "이메일과 업로드용으로 사진 용량 줄이기" },
       { slug: "resize-image-to-50kb", text: "시험 접수와 입사 지원서용" },
+      { slug: "invoice-generator", text: "인보이스를 만들고 PDF로 저장" },
     ],
   },
   privacy: {

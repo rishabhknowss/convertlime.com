@@ -14,7 +14,7 @@ const slugs = new Set();
 for (const m of toolsSource.matchAll(/convert\("(\w+)", "(\w+)"/g)) slugs.add(`${m[1]}-to-${m[2]}`);
 for (const m of toolsSource.matchAll(/toPdf\("(\w+)"/g)) slugs.add(`${m[1]}-to-pdf`);
 for (const m of toolsSource.matchAll(/resizeKb\((\d+)\)/g)) slugs.add(`resize-image-to-${m[1]}kb`);
-["compress-image", "image-to-pdf", "remove-background", ""].forEach((s) => slugs.add(s));
+["compress-image", "image-to-pdf", "remove-background", "invoice-generator", ""].forEach((s) => slugs.add(s));
 const posts = fs.readdirSync(dir).filter((f) => f.endsWith(".md"));
 const postSlugs = new Set(posts.map((f) => f.replace(/\.md$/, "")));
 let failed = 0;

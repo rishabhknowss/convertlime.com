@@ -150,6 +150,7 @@ export const pt: Dictionary = {
       logoError: "Não foi possível usar essa imagem como logo. Tente um PNG ou JPG.",
       currency: "Moeda",
       color: "Cor",
+      customColor: "Cor personalizada",
       newInvoice: "Nova fatura",
       newInvoiceDone: "Nova fatura criada. Seus dados e seu logo foram mantidos.",
       downloadPdf: "Baixar PDF",
@@ -158,6 +159,12 @@ export const pt: Dictionary = {
       pdfFailed: "Não foi possível gerar o PDF. Tente Imprimir e escolha Salvar como PDF.",
       printInstead: "Parte do texto precisa de uma fonte que o PDF rápido não consegue usar, então a janela de impressão vai abrir. Escolha Salvar como PDF.",
       totalDue: "Total a pagar",
+      template: "Modelo",
+      templates: { classic: "Clássico", studio: "Estúdio", midnight: "Meia-noite", editorial: "Editorial", bold: "Marcante" },
+      addCover: "Adicionar uma imagem de capa",
+      uploadCover: "Envie a sua",
+      removeCover: "Remover capa",
+      coverError: "Não foi possível usar essa imagem como capa. Tente um JPG ou PNG.",
     },
   },
   categories: {
@@ -272,9 +279,10 @@ export const pt: Dictionary = {
   },
   tool: {
     heading,
+    h1: (v) => `${heading(v)} grátis`,
     title: (v) => {
-      if (v.kind === "resize-kb") return `${heading(v)} online grátis, tamanho exato`;
-      if (v.kind === "compress") return `${heading(v)} online grátis, sem enviar arquivos`;
+      if (v.kind === "resize-kb") return `${heading(v)} online grátis e sem cadastro`;
+      if (v.kind === "compress") return `${heading(v)} online grátis e sem cadastro`;
       return `${heading(v)} online grátis e sem cadastro`;
     },
     description: (v) => {
@@ -526,6 +534,7 @@ export const pt: Dictionary = {
       { slug: "heic-to-jpg", text: "abra fotos do iPhone em qualquer lugar" },
       { slug: "compress-image", text: "deixe fotos mais leves para e-mail e envios" },
       { slug: "resize-image-to-50kb", text: "para formulários de concursos e vagas de emprego" },
+      { slug: "invoice-generator", text: "fazer um invoice e baixar em PDF" },
     ],
   },
   privacy: {

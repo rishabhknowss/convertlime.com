@@ -35,6 +35,9 @@ const removeBgText = (tool: Tool, locale: Locale) => {
 export const toolHeading = (tool: Tool, locale: Locale) =>
   removeBgText(tool, locale)?.heading ?? getDictionary(locale).tool.heading(toolVars(tool));
 
+export const toolH1 = (tool: Tool, locale: Locale) =>
+  removeBgText(tool, locale)?.heading ?? getDictionary(locale).tool.h1(toolVars(tool));
+
 export const toolTitle = (tool: Tool, locale: Locale) =>
   `${removeBgText(tool, locale)?.title ?? getDictionary(locale).tool.title(toolVars(tool))} | ${SITE.name}`;
 

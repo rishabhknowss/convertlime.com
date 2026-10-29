@@ -6,6 +6,7 @@ import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { InvoicePaper } from "@/components/invoice/invoice-paper";
 import { InvoiceToolbar } from "@/components/invoice/invoice-toolbar";
+import { TemplatePicker } from "@/components/invoice/template-picker";
 import { useInvoice } from "@/hooks/use-invoice";
 import { defaultCurrencyFor } from "@/lib/invoice/defaults";
 import { formatMoney } from "@/lib/invoice/money";
@@ -37,7 +38,9 @@ export const InvoiceTool = () => {
   const seed = useMemo(
     () => ({
       title: text.documentTitle,
-      currency: defaultCurrencyFor(typeof navigator === "undefined" ? locale : navigator.language || locale),
+      currency: defaultCurrencyFor(
+        typeof navigator !== "undefined" && navigator.language.split("-")[0] === locale ? navigator.language : locale,
+      ),
     }),
     [locale, text.documentTitle],
   );
@@ -82,6 +85,7 @@ export const InvoiceTool = () => {
         onPrint={() => window.print()}
         onDownload={download}
       />
+      <TemplatePicker value={invoice.template} accent={invoice.accent} text={text} onChange={store.setTemplate} />
       <div className="rounded-3xl bg-[radial-gradient(circle_at_1px_1px,color-mix(in_oklab,var(--foreground)_9%,transparent)_1px,transparent_0)] [background-size:18px_18px] p-2 sm:-mx-6 sm:p-6 print:bg-none print:p-0">
         <InvoicePaper invoice={invoice} totals={totals} store={store} text={text} locale={locale} />
       </div>

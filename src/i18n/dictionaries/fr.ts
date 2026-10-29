@@ -148,6 +148,7 @@ export const fr: Dictionary = {
       logoError: "Cette image ne peut pas servir de logo. Essayez un PNG ou un JPG.",
       currency: "Devise",
       color: "Couleur",
+      customColor: "Couleur personnalisée",
       newInvoice: "Nouvelle facture",
       newInvoiceDone: "Nouvelle facture créée. Vos coordonnées et votre logo ont été conservés.",
       downloadPdf: "Télécharger le PDF",
@@ -156,6 +157,12 @@ export const fr: Dictionary = {
       pdfFailed: "Le PDF n’a pas pu être créé. Essayez Imprimer, puis choisissez Enregistrer au format PDF.",
       printInstead: "Une partie du texte demande une police que le PDF rapide ne peut pas utiliser : la fenêtre d’impression s’ouvre. Choisissez Enregistrer au format PDF.",
       totalDue: "Total à payer",
+      template: "Modèle",
+      templates: { classic: "Classique", studio: "Studio", midnight: "Minuit", editorial: "Éditorial", bold: "Audacieux" },
+      addCover: "Ajouter une image de couverture",
+      uploadCover: "Importer la vôtre",
+      removeCover: "Retirer la couverture",
+      coverError: "Cette image ne peut pas servir de couverture. Essayez un JPG ou un PNG.",
     },
   },
   categories: {
@@ -270,9 +277,10 @@ export const fr: Dictionary = {
   },
   tool: {
     heading,
+    h1: (v) => `${heading(v)} gratuitement`,
     title: (v) => {
-      if (v.kind === "resize-kb") return `${heading(v)} en ligne – Taille exacte`;
-      if (v.kind === "compress") return `${heading(v)} en ligne gratuitement`;
+      if (v.kind === "resize-kb") return `${heading(v)} en ligne – Gratuit, sans inscription`;
+      if (v.kind === "compress") return `${heading(v)} en ligne – Gratuit, sans inscription`;
       if (v.imageToPdf) return "Convertir une image en PDF – Gratuit, sans inscription";
       return `${heading(v)} – Gratuit et sans inscription`;
     },
@@ -549,6 +557,7 @@ export const fr: Dictionary = {
       { slug: "heic-to-jpg", text: "ouvrir vos photos d'iPhone partout" },
       { slug: "compress-image", text: "alléger vos photos pour les e-mails et les formulaires" },
       { slug: "resize-image-to-50kb", text: "pour les formulaires d'examen et de candidature" },
+      { slug: "invoice-generator", text: "faire une facture et la télécharger en PDF" },
     ],
   },
   privacy: {

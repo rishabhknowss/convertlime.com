@@ -143,6 +143,7 @@ export const ja: Dictionary = {
       logoError: "この画像はロゴに使えません。PNGかJPGをお試しください。",
       currency: "通貨",
       color: "色",
+      customColor: "カスタムカラー",
       newInvoice: "新しい請求書",
       newInvoiceDone: "新しい請求書を作成しました。あなたの情報とロゴは引き継がれています。",
       downloadPdf: "PDFをダウンロード",
@@ -151,6 +152,12 @@ export const ja: Dictionary = {
       pdfFailed: "PDFを作成できませんでした。「印刷」を開き、「PDFに保存」を選んでください。",
       printInstead: "一部の文字に簡易PDFでは使えないフォントが必要なため、印刷画面を開きます。「PDFに保存」を選んでください。",
       totalDue: "ご請求金額",
+      template: "テンプレート",
+      templates: { classic: "クラシック", studio: "スタジオ", midnight: "ミッドナイト", editorial: "エディトリアル", bold: "ボールド" },
+      addCover: "カバー画像を追加",
+      uploadCover: "自分の画像をアップロード",
+      removeCover: "カバーを削除",
+      coverError: "この画像はカバーに使えません。JPGかPNGをお試しください。",
     },
   },
   categories: {
@@ -265,9 +272,10 @@ export const ja: Dictionary = {
   },
   tool: {
     heading,
+    h1: (v) => `${heading(v)}（無料・登録不要）`,
     title: (v) => {
-      if (v.kind === "resize-kb") return `${heading(v)}｜無料・サイズぴったり`;
-      return `${heading(v)}｜無料・アップロード不要`;
+      if (v.kind === "resize-kb") return `${heading(v)}｜無料・登録不要・サイズぴったり`;
+      return `${heading(v)}｜無料・登録不要・アップロード不要`;
     },
     description: (v) => {
       if (v.kind === "resize-kb")
@@ -514,6 +522,7 @@ export const ja: Dictionary = {
       { slug: "heic-to-jpg", text: "iPhoneの写真をどこでも開けるように" },
       { slug: "compress-image", text: "メールやアップロード用に写真を小さく" },
       { slug: "resize-image-to-50kb", text: "試験や求人応募のフォーム用に" },
+      { slug: "invoice-generator", text: "請求書を作成してPDFでダウンロード" },
     ],
   },
   privacy: {

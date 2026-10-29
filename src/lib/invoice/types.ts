@@ -10,12 +10,17 @@ export type InvoiceParty = {
   details: string;
 };
 
+export type TemplateId = "classic" | "studio" | "midnight" | "editorial" | "bold";
+
 export type Invoice = {
+  template: TemplateId;
+  cover: string | null;
   title: string;
   number: string;
   issueDate: string;
   dueDate: string;
   currency: string;
+  currencyPinned?: boolean;
   accent: string;
   logo: string | null;
   from: InvoiceParty;

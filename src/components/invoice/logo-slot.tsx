@@ -3,28 +3,7 @@
 import { useRef } from "react";
 import { ImagePlus, X } from "lucide-react";
 import { toast } from "sonner";
-
-const MAX_SIDE = 1600;
-
-const toPngDataUrl = (file: File) =>
-  new Promise<string>((resolve, reject) => {
-    const url = URL.createObjectURL(file);
-    const image = new Image();
-    image.onload = () => {
-      const scale = Math.min(1, MAX_SIDE / Math.max(image.naturalWidth, image.naturalHeight));
-      const canvas = document.createElement("canvas");
-      canvas.width = Math.max(1, Math.round(image.naturalWidth * scale));
-      canvas.height = Math.max(1, Math.round(image.naturalHeight * scale));
-      canvas.getContext("2d")?.drawImage(image, 0, 0, canvas.width, canvas.height);
-      URL.revokeObjectURL(url);
-      resolve(canvas.toDataURL("image/png"));
-    };
-    image.onerror = () => {
-      URL.revokeObjectURL(url);
-      reject(new Error("unreadable"));
-    };
-    image.src = url;
-  });
+import { readImageFile } from "@/lib/invoice/image";
 
 type LogoSlotProps = {
   logo: string | null;
@@ -37,7 +16,7 @@ export const LogoSlot = ({ logo, onChange, labels }: LogoSlotProps) => {
   const pick = async (file: File | undefined) => {
     if (!file) return;
     try {
-      onChange(await toPngDataUrl(file));
+      onChange(await readImageFile(file, { maxSide: 1600, type: "image/png" }));
     } catch {
       toast.error(labels.error);
     }

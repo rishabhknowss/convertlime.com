@@ -146,6 +146,7 @@ export const en: Dictionary = {
       logoError: "That image could not be used as a logo. Try a PNG or JPG.",
       currency: "Currency",
       color: "Color",
+      customColor: "Custom color",
       newInvoice: "New invoice",
       newInvoiceDone: "New invoice started. Your details and logo were kept.",
       downloadPdf: "Download PDF",
@@ -154,6 +155,12 @@ export const en: Dictionary = {
       pdfFailed: "The PDF could not be made. Try Print and choose Save as PDF.",
       printInstead: "Some text needs a font the quick PDF cannot use, so your print window is opening. Choose Save as PDF.",
       totalDue: "Total due",
+      template: "Template",
+      templates: { classic: "Classic", studio: "Studio", midnight: "Midnight", editorial: "Editorial", bold: "Bold" },
+      addCover: "Add a cover image",
+      uploadCover: "Upload your own",
+      removeCover: "Remove cover",
+      coverError: "That image could not be used as a cover. Try a JPG or PNG.",
     },
   },
   categories: {
@@ -268,10 +275,11 @@ export const en: Dictionary = {
   },
   tool: {
     heading,
+    h1: (v) => (v.kind === "convert" || v.kind === "to-pdf" ? `Free ${heading(v)}` : `${heading(v)} Online Free`),
     title: (v) => {
-      if (v.kind === "resize-kb") return `${heading(v)} Online – Free, Exact Size`;
-      if (v.kind === "compress") return `${heading(v)} Online – Free, No Upload`;
-      return `${heading(v)} – Free, Private, No Upload`;
+      if (v.kind === "resize-kb") return `${heading(v)} Online – Free, No Sign-up`;
+      if (v.kind === "compress") return `${heading(v)} Online – Free, No Sign-up`;
+      return `${heading(v)} – Free, No Sign-up, No Upload`;
     },
     description: (v) => {
       if (v.kind === "resize-kb")
@@ -510,6 +518,7 @@ export const en: Dictionary = {
       { slug: "heic-to-jpg", text: "open iPhone photos anywhere" },
       { slug: "compress-image", text: "make photos smaller for email and uploads" },
       { slug: "resize-image-to-50kb", text: "for exam and job application forms" },
+      { slug: "invoice-generator", text: "make and download a PDF invoice" },
     ],
   },
   privacy: {

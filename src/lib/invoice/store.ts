@@ -14,8 +14,9 @@ const load = (): Invoice | null => {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
     if (!raw) return null;
-    const parsed = JSON.parse(raw) as Invoice;
-    return Array.isArray(parsed.items) ? parsed : null;
+    const parsed = JSON.parse(raw) as Partial<Invoice>;
+    if (!Array.isArray(parsed.items)) return null;
+    return { template: "classic", cover: null, ...parsed } as Invoice;
   } catch {
     return null;
   }

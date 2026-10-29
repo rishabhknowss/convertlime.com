@@ -2,6 +2,8 @@ import type { Invoice, InvoiceItem } from "@/lib/invoice/types";
 
 export const ACCENTS = ["#65a30d", "#0f766e", "#1d4ed8", "#7c3aed", "#be123c", "#c2410c", "#171717"] as const;
 
+export const DEFAULT_ACCENT = "#1d4ed8";
+
 const isoDate = (date: Date) => {
   const offset = date.getTimezoneOffset() * 60_000;
   return new Date(date.getTime() - offset).toISOString().slice(0, 10);
@@ -32,12 +34,15 @@ export type InvoiceSeed = {
 export const createInvoice = (seed: InvoiceSeed, previous?: Invoice | null): Invoice => {
   const today = new Date();
   return {
+    template: previous?.template ?? "classic",
+    cover: previous?.cover ?? null,
     title: seed.title,
     number: nextInvoiceNumber(previous?.number ?? null),
     issueDate: isoDate(today),
     dueDate: isoDate(addDays(today, 14)),
-    currency: previous?.currency ?? seed.currency,
-    accent: previous?.accent ?? ACCENTS[0],
+    currency: previous?.currencyPinned ? previous.currency : seed.currency,
+    currencyPinned: previous?.currencyPinned,
+    accent: previous?.accent ?? DEFAULT_ACCENT,
     logo: previous?.logo ?? null,
     from: previous?.from ?? { name: "", details: "" },
     to: { name: "", details: "" },

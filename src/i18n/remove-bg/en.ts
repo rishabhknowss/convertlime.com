@@ -1,8 +1,8 @@
 import type { Dictionary } from "@/i18n/types";
 
 export const removeBg: Dictionary["removeBg"] = {
-  heading: "Remove Background from Image",
-  title: "Remove Background from Image – Free Remove BG, No Upload",
+  heading: "Remove Background from Image Free",
+  title: "Remove Background from Image – Free Remove BG, No Sign-up",
   description:
     "Remove the background from any image free. Get a transparent PNG in seconds – no sign-up, no upload, no watermark. Works on photos, products and logos.",
   lead: "Drop a photo and get it back with a transparent background in seconds. A free remove bg tool that runs on your own device, so your images are never uploaded.",

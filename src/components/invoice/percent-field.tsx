@@ -12,7 +12,7 @@ type PercentFieldProps = {
 export const PercentField = ({ value, onValue, label }: PercentFieldProps) => {
   const [draft, setDraft] = useState<string | null>(null);
   return (
-    <span className="inline-flex h-6 items-center rounded-md border border-border bg-white pr-1.5 text-xs tabular-nums transition-[border-color,box-shadow] focus-within:border-[var(--inv-accent)] focus-within:shadow-[0_0_0_2px_color-mix(in_oklab,var(--inv-accent)_22%,transparent)] hover:border-[color-mix(in_oklab,var(--inv-accent)_50%,var(--border))] print:border-transparent">
+    <span className="inline-flex h-6 items-center rounded-md border border-border bg-transparent pr-1.5 text-xs tabular-nums transition-[border-color,box-shadow] focus-within:border-[var(--inv-accent)] focus-within:shadow-[0_0_0_2px_color-mix(in_oklab,var(--inv-accent)_22%,transparent)] hover:border-[color-mix(in_oklab,var(--inv-accent)_50%,var(--border))] print:border-transparent">
       <input
         aria-label={`${label} %`}
         inputMode="decimal"

@@ -163,6 +163,7 @@ export const es: Dictionary = {
       logoError: "Esa imagen no se puede usar como logo. Prueba con un PNG o JPG.",
       currency: "Moneda",
       color: "Color",
+      customColor: "Color personalizado",
       newInvoice: "Nueva factura",
       newInvoiceDone: "Nueva factura creada. Se han conservado tus datos y tu logo.",
       downloadPdf: "Descargar PDF",
@@ -171,6 +172,12 @@ export const es: Dictionary = {
       pdfFailed: "No se pudo crear el PDF. Prueba con Imprimir y elige Guardar como PDF.",
       printInstead: "Parte del texto necesita una fuente que el PDF rápido no puede usar, así que se abrirá la ventana de impresión. Elige Guardar como PDF.",
       totalDue: "Total a pagar",
+      template: "Plantilla",
+      templates: { classic: "Clásica", studio: "Estudio", midnight: "Medianoche", editorial: "Editorial", bold: "Intensa" },
+      addCover: "Añadir una imagen de portada",
+      uploadCover: "Sube la tuya",
+      removeCover: "Quitar portada",
+      coverError: "Esa imagen no se puede usar como portada. Prueba con un JPG o PNG.",
     },
   },
   categories: {
@@ -285,10 +292,11 @@ export const es: Dictionary = {
   },
   tool: {
     heading,
+    h1: (v) => `${heading(v)} gratis`,
     title: (v) => {
-      if (v.kind === "resize-kb") return `${heading(v)} online – Gratis, tamaño exacto`;
-      if (v.kind === "compress") return `${heading(v)} online – Gratis y sin subir archivos`;
-      return `${heading(v)} – Gratis y sin subir archivos`;
+      if (v.kind === "resize-kb") return `${heading(v)} online – Gratis y sin registro`;
+      if (v.kind === "compress") return `${heading(v)} online – Gratis y sin registro`;
+      return `${heading(v)} – Gratis, sin registro ni subir archivos`;
     },
     description: (v) => {
       if (v.kind === "resize-kb")
@@ -543,6 +551,7 @@ export const es: Dictionary = {
       { slug: "heic-to-jpg", text: "abre las fotos del iPhone en cualquier sitio" },
       { slug: "compress-image", text: "haz tus fotos más ligeras para enviarlas por correo o subirlas" },
       { slug: "resize-image-to-50kb", text: "para formularios de exámenes y ofertas de empleo" },
+      { slug: "invoice-generator", text: "hacer una factura y descargarla en PDF" },
     ],
   },
   privacy: {

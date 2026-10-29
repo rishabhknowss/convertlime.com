@@ -143,6 +143,7 @@ export const zh: Dictionary = {
       logoError: "这张图片无法用作 Logo，请试试 PNG 或 JPG。",
       currency: "币种",
       color: "颜色",
+      customColor: "自定义颜色",
       newInvoice: "新建发票",
       newInvoiceDone: "已新建发票，你的信息和 Logo 已保留。",
       downloadPdf: "下载 PDF",
@@ -151,6 +152,12 @@ export const zh: Dictionary = {
       pdfFailed: "无法生成 PDF。请试试“打印”，然后选择“另存为 PDF”。",
       printInstead: "部分文字需要快速 PDF 无法使用的字体，因此将打开打印窗口。请选择“另存为 PDF”。",
       totalDue: "应付总额",
+      template: "模板",
+      templates: { classic: "经典", studio: "工作室", midnight: "午夜", editorial: "杂志", bold: "醒目" },
+      addCover: "添加封面图片",
+      uploadCover: "上传自己的图片",
+      removeCover: "移除封面",
+      coverError: "这张图片无法用作封面，请试试 JPG 或 PNG。",
     },
   },
   categories: {
@@ -265,10 +272,11 @@ export const zh: Dictionary = {
   },
   tool: {
     heading,
+    h1: (v) => `免费${heading(v)}`,
     title: (v) => {
-      if (v.kind === "resize-kb") return `${heading(v)} - 免费在线压缩，大小精准`;
-      if (v.kind === "compress") return `${heading(v)} - 免费在线压缩图片大小，无需上传`;
-      return `${heading(v)} - 免费在线转换，无需上传`;
+      if (v.kind === "resize-kb") return `${heading(v)} - 免费在线压缩，无需注册`;
+      if (v.kind === "compress") return `${heading(v)} - 免费在线压缩，无需注册和上传`;
+      return `${heading(v)} - 免费在线转换，无需注册和上传`;
     },
     description: (v) => {
       if (v.kind === "resize-kb")
@@ -501,6 +509,7 @@ export const zh: Dictionary = {
       { slug: "heic-to-jpg", text: "让iPhone照片在哪里都能打开" },
       { slug: "compress-image", text: "缩小照片，方便发邮件和上传" },
       { slug: "resize-image-to-50kb", text: "适用于考试报名和求职表单" },
+      { slug: "invoice-generator", text: "制作发票并下载为 PDF" },
     ],
   },
   privacy: {

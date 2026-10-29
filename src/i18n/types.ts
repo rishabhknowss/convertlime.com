@@ -158,6 +158,7 @@ export type InvoiceUi = {
   logoError: string;
   currency: string;
   color: string;
+  customColor: string;
   newInvoice: string;
   newInvoiceDone: string;
   downloadPdf: string;
@@ -166,6 +167,12 @@ export type InvoiceUi = {
   pdfFailed: string;
   printInstead: string;
   totalDue: string;
+  template: string;
+  templates: Record<"classic" | "studio" | "midnight" | "editorial" | "bold", string>;
+  addCover: string;
+  uploadCover: string;
+  removeCover: string;
+  coverError: string;
 };
 
 export type Dictionary = {
@@ -184,6 +191,7 @@ export type Dictionary = {
   };
   tool: {
     heading: (v: ToolVars) => string;
+    h1: (v: ToolVars) => string;
     title: (v: ToolVars) => string;
     description: (v: ToolVars) => string;
     lead: (v: ToolVars) => string;

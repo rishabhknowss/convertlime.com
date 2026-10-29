@@ -80,34 +80,38 @@ const removeBackground: Tool = {
   },
 };
 
-const invoiceMaker: Tool = {
-  slug: "invoice-maker",
+const invoiceGenerator: Tool = {
+  slug: "invoice-generator",
   kind: "invoice",
   category: "docs",
-  title: "Invoice maker",
-  keyword: "invoice maker",
+  title: "Invoice generator",
+  keyword: "invoice generator",
   from: ["pdf"],
   to: "pdf",
   featured: true,
   localSlugs: {
     es: "generador-de-facturas",
-    pt: "gerador-de-fatura",
-    fr: "generateur-de-facture",
-    de: "rechnung-erstellen",
+    pt: "gerador-de-invoice",
+    fr: "faire-une-facture",
+    de: "rechnung-schreiben",
     ja: "請求書作成",
-    ko: "인보이스-만들기",
+    ko: "인보이스-양식",
     zh: "发票生成器",
   },
 };
 
 export const TOOL_ALIASES: Record<string, string> = {
   "remove-bg": "remove-background",
-  "invoice-generator": "invoice-maker",
+  "invoice-maker": "invoice-generator",
+  "gerador-de-fatura": "invoice-generator",
+  "generateur-de-facture": "invoice-generator",
+  "rechnung-erstellen": "invoice-generator",
+  "인보이스-만들기": "invoice-generator",
 };
 
 export const TOOLS: Tool[] = [
   removeBackground,
-  invoiceMaker,
+  invoiceGenerator,
   convert("heic", "jpg", "iphone", true),
   convert("heic", "png", "iphone", true),
   toPdf("heic", "iphone"),

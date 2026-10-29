@@ -147,6 +147,7 @@ export const de: Dictionary = {
       logoError: "Dieses Bild kann nicht als Logo verwendet werden. Versuche es mit PNG oder JPG.",
       currency: "Währung",
       color: "Farbe",
+      customColor: "Eigene Farbe",
       newInvoice: "Neue Rechnung",
       newInvoiceDone: "Neue Rechnung begonnen. Deine Daten und dein Logo wurden übernommen.",
       downloadPdf: "PDF herunterladen",
@@ -155,6 +156,12 @@ export const de: Dictionary = {
       pdfFailed: "Das PDF konnte nicht erstellt werden. Versuche Drucken und wähle Als PDF speichern.",
       printInstead: "Ein Teil des Textes braucht eine Schrift, die das schnelle PDF nicht nutzen kann, deshalb öffnet sich das Druckfenster. Wähle Als PDF speichern.",
       totalDue: "Fälliger Betrag",
+      template: "Vorlage",
+      templates: { classic: "Klassisch", studio: "Studio", midnight: "Mitternacht", editorial: "Editorial", bold: "Kräftig" },
+      addCover: "Titelbild hinzufügen",
+      uploadCover: "Eigenes hochladen",
+      removeCover: "Titelbild entfernen",
+      coverError: "Dieses Bild kann nicht als Titelbild verwendet werden. Versuche es mit JPG oder PNG.",
     },
   },
   categories: {
@@ -269,10 +276,11 @@ export const de: Dictionary = {
   },
   tool: {
     heading,
+    h1: (v) => `${heading(v)} – kostenlos`,
     title: (v) => {
-      if (v.kind === "resize-kb") return `${heading(v)} – online, kostenlos, exakt`;
-      if (v.kind === "compress") return "Bild online komprimieren – kostenlos, ohne Upload";
-      return `${heading(v)} – kostenlos & ohne Upload`;
+      if (v.kind === "resize-kb") return `${heading(v)} – kostenlos, ohne Anmeldung`;
+      if (v.kind === "compress") return "Bild online komprimieren – kostenlos, ohne Anmeldung";
+      return `${heading(v)} – kostenlos, ohne Anmeldung & Upload`;
     },
     description: (v) => {
       if (v.kind === "resize-kb")
@@ -544,6 +552,7 @@ export const de: Dictionary = {
       { slug: "heic-to-jpg", text: "iPhone-Fotos überall öffnen" },
       { slug: "compress-image", text: "Fotos für E-Mails und Uploads verkleinern" },
       { slug: "resize-image-to-50kb", text: "für Prüfungs- und Bewerbungsformulare" },
+      { slug: "invoice-generator", text: "eine Rechnung schreiben und als PDF laden" },
     ],
   },
   privacy: {

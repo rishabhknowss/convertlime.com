@@ -9,7 +9,7 @@ import { RelatedTools } from "@/components/tool/related-tools";
 import { ToolGuides } from "@/components/tool/tool-guides";
 import { TOOLS, findTool, toolSlug } from "@/data/tools";
 import { toolContent } from "@/lib/content";
-import { toolHeading, toolLead, toolMetadata, toolPromises } from "@/lib/seo";
+import { toolH1, toolHeading, toolLead, toolMetadata, toolPromises } from "@/lib/seo";
 import { LOCALES, isLocale, localePath } from "@/i18n/config";
 import { getDictionary } from "@/i18n/dictionaries";
 
@@ -40,7 +40,7 @@ const ToolPage = async ({ params }: PageProps<"/[lang]/[slug]">) => {
       <ToolJsonLd tool={tool} content={content} locale={lang} />
       <div className="mx-auto max-w-3xl">
         <Breadcrumbs items={[{ name: text.breadcrumbHome, href: localePath(lang, "/") }, { name: heading }]} />
-        <h1 className="text-4xl font-bold tracking-tight md:text-5xl">{heading}</h1>
+        <h1 className="text-4xl font-bold tracking-tight md:text-5xl">{toolH1(tool, lang)}</h1>
         <p className="mt-3 text-lg text-muted-foreground">{toolLead(tool, lang)}</p>
         <ul className="mt-5 mb-8 flex flex-wrap gap-x-6 gap-y-2 text-sm text-muted-foreground">
           {toolPromises(tool, lang).map((promise, index) => {

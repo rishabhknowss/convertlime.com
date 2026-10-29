@@ -2,7 +2,7 @@ import type { Dictionary } from "@/i18n/types";
 
 export const removeBg: Dictionary["removeBg"] = {
   heading: "Remover Fundo de Imagem Grátis",
-  title: "Remover Fundo de Imagem Grátis – Online e Sem Upload",
+  title: "Remover Fundo de Imagem Grátis – Online e Sem Cadastro",
   description:
     "Remover fundo de imagem grátis e sem cadastro: deixe o fundo transparente e baixe um PNG sem marca d’água. Sua foto não sai do seu aparelho.",
   lead: "Remover fundo de imagem nunca foi tão simples: solte a foto aqui e receba de volta só a pessoa ou o objeto, com fundo transparente. É grátis, sem cadastro, e a sua foto não é enviada para lugar nenhum.",
