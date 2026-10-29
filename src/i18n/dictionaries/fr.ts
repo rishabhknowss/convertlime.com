@@ -1,6 +1,7 @@
 import type { FormatId } from "@/data/formats";
 import type { Dictionary, ToolVars } from "@/i18n/types";
 import { removeBg } from "@/i18n/remove-bg/fr";
+import { invoice } from "@/i18n/invoice/fr";
 
 const ELIDED = new Set<FormatId>(["avif", "ico"]);
 const TheFormat = (id: FormatId, label: string) => (ELIDED.has(id) ? `L'${label}` : `Le ${label}`);
@@ -113,9 +114,53 @@ export const fr: Dictionary = {
       result: "Résultat",
       compare: "Comparer l’original et le résultat",
     },
+    invoice: {
+      documentTitle: "Facture",
+      from: "De",
+      billTo: "Facturer à",
+      number: "N° de facture",
+      issued: "Date",
+      due: "Échéance",
+      description: "Description",
+      quantity: "Qté",
+      rate: "Prix",
+      amount: "Montant",
+      subtotal: "Sous-total",
+      discount: "Remise",
+      tax: "TVA",
+      shipping: "Livraison",
+      total: "Total",
+      paid: "Montant réglé",
+      balance: "Reste à payer",
+      notes: "Notes",
+      terms: "Conditions de paiement",
+      fromNamePlaceholder: "Votre nom ou entreprise",
+      fromDetailsPlaceholder: "Adresse, e-mail, téléphone, n° SIRET ou TVA",
+      toNamePlaceholder: "Nom du client",
+      toDetailsPlaceholder: "Adresse et e-mail du client",
+      itemPlaceholder: "Qu’avez-vous vendu ou réalisé ?",
+      notesPlaceholder: "Merci pour votre confiance !",
+      termsPlaceholder: "Coordonnées bancaires, lien de paiement ou délai de paiement",
+      addItem: "Ajouter une ligne",
+      removeItem: "Supprimer la ligne",
+      addLogo: "Ajouter un logo",
+      removeLogo: "Retirer le logo",
+      logoError: "Cette image ne peut pas servir de logo. Essayez un PNG ou un JPG.",
+      currency: "Devise",
+      color: "Couleur",
+      newInvoice: "Nouvelle facture",
+      newInvoiceDone: "Nouvelle facture créée. Vos coordonnées et votre logo ont été conservés.",
+      downloadPdf: "Télécharger le PDF",
+      print: "Imprimer",
+      saved: "Enregistré sur cet appareil",
+      pdfFailed: "Le PDF n’a pas pu être créé. Essayez Imprimer, puis choisissez Enregistrer au format PDF.",
+      printInstead: "Une partie du texte demande une police que le PDF rapide ne peut pas utiliser : la fenêtre d’impression s’ouvre. Choisissez Enregistrer au format PDF.",
+      totalDue: "Total à payer",
+    },
   },
   categories: {
     edit: "Modifier des images",
+    docs: "Documents",
     iphone: "Photos d'iPhone",
     web: "Images du web",
     everyday: "Formats courants",
@@ -532,4 +577,5 @@ export const fr: Dictionary = {
     allTools: "tous les outils",
   },
   removeBg,
+  invoice,
 };

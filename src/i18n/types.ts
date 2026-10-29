@@ -4,6 +4,18 @@ import type { CategoryId, ToolKind } from "@/data/tools";
 export type QA = { question: string; answer: string };
 export type TextSection = { heading: string; body: string[] };
 
+export type ToolPage = {
+  heading: string;
+  title: string;
+  description: string;
+  lead: string;
+  keywords: string[];
+  promises: [string, string, string];
+  steps: string[];
+  sections: TextSection[];
+  faqs: QA[];
+};
+
 export type ToolVars = {
   kind: ToolKind;
   from: string;
@@ -109,6 +121,51 @@ export type UiStrings = {
     result: string;
     compare: string;
   };
+  invoice: InvoiceUi;
+};
+
+export type InvoiceUi = {
+  documentTitle: string;
+  from: string;
+  billTo: string;
+  number: string;
+  issued: string;
+  due: string;
+  description: string;
+  quantity: string;
+  rate: string;
+  amount: string;
+  subtotal: string;
+  discount: string;
+  tax: string;
+  shipping: string;
+  total: string;
+  paid: string;
+  balance: string;
+  notes: string;
+  terms: string;
+  fromNamePlaceholder: string;
+  fromDetailsPlaceholder: string;
+  toNamePlaceholder: string;
+  toDetailsPlaceholder: string;
+  itemPlaceholder: string;
+  notesPlaceholder: string;
+  termsPlaceholder: string;
+  addItem: string;
+  removeItem: string;
+  addLogo: string;
+  removeLogo: string;
+  logoError: string;
+  currency: string;
+  color: string;
+  newInvoice: string;
+  newInvoiceDone: string;
+  downloadPdf: string;
+  print: string;
+  saved: string;
+  pdfFailed: string;
+  printInstead: string;
+  totalDue: string;
 };
 
 export type Dictionary = {
@@ -207,6 +264,7 @@ export type Dictionary = {
   };
   privacy: { h1: string; metaDescription: string; points: { heading: string; body: string }[] };
   notFound: { title: string; h1: string; body: string; allTools: string };
+  invoice: ToolPage;
   removeBg: {
     heading: string;
     title: string;

@@ -228,3 +228,50 @@
     animation: none;
   }
 }
+
+.invoice-sheet {
+  color-scheme: light;
+  --background: oklch(0.99 0 0);
+  --foreground: oklch(0.17 0 0);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.17 0 0);
+  --muted: oklch(0.96 0 0);
+  --muted-foreground: oklch(0.5 0 0);
+  --border: oklch(0.91 0 0);
+  --input: oklch(0.91 0 0);
+  --destructive: oklch(0.577 0.245 27.325);
+  color: var(--foreground);
+}
+
+@keyframes invoice-saved {
+  0%,
+  70% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@media print {
+  @page {
+    size: A4;
+    margin: 12mm;
+  }
+  body * {
+    visibility: hidden;
+  }
+  .invoice-print,
+  .invoice-print * {
+    visibility: visible;
+  }
+  .invoice-print input::-webkit-calendar-picker-indicator {
+    display: none;
+  }
+  .invoice-print {
+    position: absolute;
+    inset: 0 0 auto 0;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+}

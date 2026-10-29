@@ -26,8 +26,11 @@ export const toolVars = (tool: Tool): ToolVars => ({
   englishKeyword: tool.keyword.split(" ").map(titleWord).join(" "),
 });
 
-const removeBgText = (tool: Tool, locale: Locale) =>
-  tool.kind === "remove-bg" ? getDictionary(locale).removeBg : null;
+const removeBgText = (tool: Tool, locale: Locale) => {
+  if (tool.kind === "remove-bg") return getDictionary(locale).removeBg;
+  if (tool.kind === "invoice") return getDictionary(locale).invoice;
+  return null;
+};
 
 export const toolHeading = (tool: Tool, locale: Locale) =>
   removeBgText(tool, locale)?.heading ?? getDictionary(locale).tool.heading(toolVars(tool));

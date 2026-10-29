@@ -12,10 +12,13 @@ import { FORMATS } from "@/data/formats";
 import { fill } from "@/i18n/config";
 import { useLocale } from "@/i18n/locale-provider";
 import { RemoveBgTool } from "@/components/remove-bg/remove-bg-tool";
+import { InvoiceTool } from "@/components/invoice/invoice-tool";
 
 export const Converter = ({ slug }: { slug: string }) => {
   const tool = getTool(slug)!;
-  return tool.kind === "remove-bg" ? <RemoveBgTool /> : <FileConverter slug={slug} />;
+  if (tool.kind === "remove-bg") return <RemoveBgTool />;
+  if (tool.kind === "invoice") return <InvoiceTool />;
+  return <FileConverter slug={slug} />;
 };
 
 const FileConverter = ({ slug }: { slug: string }) => {

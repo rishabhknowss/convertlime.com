@@ -24,7 +24,7 @@ const toolEntries = (tool: Tool): Entry[] =>
     url: toolUrl(tool, locale),
     lastModified: tool.kind === "remove-bg" ? REMOVE_BG_UPDATED : LAST_UPDATED,
     changeFrequency: "monthly",
-    priority: tool.kind === "remove-bg" ? 1 : tool.featured ? 0.9 : 0.7,
+    priority: tool.kind === "remove-bg" || tool.kind === "invoice" ? 1 : tool.featured ? 0.9 : 0.7,
     alternates: { languages: toolLanguageAlternates(tool) },
   }));
 
