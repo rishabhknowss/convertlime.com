@@ -13,11 +13,12 @@ type NumberFieldProps = {
   className?: string;
   onEnter?: () => void;
   format?: (value: number) => string;
+  placeholder?: string;
 };
 
 const display = (value: number) => (value ? String(value) : "");
 
-export const NumberField = ({ value, onValue, label, suffix, className, onEnter, format }: NumberFieldProps) => {
+export const NumberField = ({ value, onValue, label, suffix, className, onEnter, format, placeholder = "0" }: NumberFieldProps) => {
   const [draft, setDraft] = useState<string | null>(null);
   const onKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
     if (event.key === "Enter" && onEnter) {
@@ -30,7 +31,7 @@ export const NumberField = ({ value, onValue, label, suffix, className, onEnter,
       <InlineInput
         aria-label={label}
         inputMode="decimal"
-        placeholder="0"
+        placeholder={placeholder}
         value={draft ?? (format && value ? format(value) : display(value))}
         onFocus={() => setDraft(display(value))}
         onBlur={() => setDraft(null)}
@@ -39,7 +40,7 @@ export const NumberField = ({ value, onValue, label, suffix, className, onEnter,
           setDraft(raw);
           onValue(parseNumber(raw));
         }}
-        className={cn("text-right tabular-nums", suffix && "pr-5", className)}
+        className={cn("mx-0 pr-0 text-right tabular-nums", suffix && "pr-5", className)}
       />
       {suffix && <span className="pointer-events-none absolute right-0 text-muted-foreground">{suffix}</span>}
     </span>

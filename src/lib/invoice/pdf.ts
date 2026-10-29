@@ -1,6 +1,8 @@
-import { PDFDocument, StandardFonts, rgb, type PDFFont, type PDFImage, type PDFPage } from "pdf-lib";
+import { PDFDocument, StandardFonts, rgb, type PDFFont, type PDFImage, type PDFPage, type RGB } from "pdf-lib";
 import { computeTotals, lineAmount } from "@/lib/invoice/totals";
 import { formatDate } from "@/lib/invoice/money";
+import { loadFontPack, pickFontPack } from "@/lib/invoice/fonts";
+import { subsetFont } from "@/lib/invoice/subset";
 import type { Invoice } from "@/lib/invoice/types";
 
 export const PDF_LABEL_KEYS = [
@@ -60,6 +62,20 @@ const assertEncodable = (font: PDFFont, text: string) => {
   }
 };
 
+const unkernedWidth = (font: PDFFont, value: string, size: number) =>
+  Array.from(value).reduce((sum, char) => sum + font.widthOfTextAtSize(char, size), 0);
+
+const measure = (font: PDFFont, value: string, size: number) => unkernedWidth(font, value, size);
+
+const drawRun = (page: PDFPage, value: string, x: number, y: number, size: number, font: PDFFont, color: RGB) => {
+  const space = font.widthOfTextAtSize(" ", size);
+  let cursor = x;
+  for (const word of value.split(" ")) {
+    if (word) page.drawText(word, { x: cursor, y, size, font, color });
+    cursor += (word ? unkernedWidth(font, word, size) : 0) + space;
+  }
+};
+
 const wrap = (text: string, font: PDFFont, size: number, width: number) => {
   const lines: string[] = [];
   for (const paragraph of text.split("\n")) {
@@ -71,15 +87,15 @@ const wrap = (text: string, font: PDFFont, size: number, width: number) => {
     let line = "";
     for (const word of words) {
       const candidate = line ? `${line} ${word}` : word;
-      if (font.widthOfTextAtSize(candidate, size) <= width) {
+      if (measure(font, candidate, size) <= width) {
         line = candidate;
         continue;
       }
       if (line) lines.push(line);
       line = word;
-      while (font.widthOfTextAtSize(line, size) > width && line.length > 1) {
+      while (measure(font, line, size) > width && line.length > 1) {
         let cut = line.length - 1;
-        while (cut > 1 && font.widthOfTextAtSize(line.slice(0, cut), size) > width) cut--;
+        while (cut > 1 && measure(font, line.slice(0, cut), size) > width) cut--;
         lines.push(line.slice(0, cut));
         line = line.slice(cut);
       }
@@ -122,11 +138,11 @@ type Ctx = {
 
 const text = (ctx: Ctx, value: string, x: number, y: number, size: number, font: PDFFont, color = INK) => {
   assertEncodable(font, value);
-  ctx.page.drawText(value, { x, y, size, font, color });
+  drawRun(ctx.page, value, x, y, size, font, color);
 };
 
 const rightText = (ctx: Ctx, value: string, right: number, y: number, size: number, font: PDFFont, color = INK) =>
-  text(ctx, value, right - font.widthOfTextAtSize(value, size), y, size, font, color);
+  text(ctx, value, right - measure(font, value, size), y, size, font, color);
 
 const newPage = (ctx: Ctx, accent: string) => {
   ctx.page = ctx.pdf.addPage([PAGE.width, PAGE.height]);
@@ -134,8 +150,15 @@ const newPage = (ctx: Ctx, accent: string) => {
   ctx.y = PAGE.height - MARGIN;
 };
 
-const assertPrintable = (font: PDFFont, invoice: Invoice, labels: InvoicePdfLabels, locale: string) => {
-  const strings = [
+const collectStrings = (invoice: Invoice, labels: InvoicePdfLabels, locale: string) => {
+  const sample = (() => {
+    try {
+      return new Intl.NumberFormat(locale, { style: "currency", currency: invoice.currency }).format(-1234567.89);
+    } catch {
+      return invoice.currency;
+    }
+  })();
+  return [
     ...Object.values(labels),
     invoice.title,
     invoice.number,
@@ -147,9 +170,40 @@ const assertPrintable = (font: PDFFont, invoice: Invoice, labels: InvoicePdfLabe
     invoice.terms,
     formatDate(invoice.issueDate, locale),
     formatDate(invoice.dueDate, locale),
+    sample,
     ...invoice.items.map((item) => item.description),
-  ];
-  for (const value of strings) assertEncodable(font, value.replace(/\n/g, " "));
+  ].map((value) => value.replace(/[\n\u00a0\u202f]/g, " "));
+};
+
+const canEncode = (font: PDFFont, value: string) => {
+  try {
+    font.encodeText(value);
+    return true;
+  } catch {
+    return false;
+  }
+};
+
+const PLAIN_GLYPHS = { locl: false, liga: false, clig: false, calt: false, dlig: false };
+
+const embedFonts = async (pdf: PDFDocument, strings: string[], locale: string) => {
+  const helvetica = await pdf.embedFont(StandardFonts.Helvetica);
+  if (strings.every((value) => canEncode(helvetica, value)))
+    return { regular: helvetica, bold: await pdf.embedFont(StandardFonts.HelveticaBold) };
+  const joined = strings.join(" ");
+  const all = `${joined} ${joined.toUpperCase()} 0123456789/-.,:()%`;
+  const [{ default: fontkit }, pack] = await Promise.all([import("@pdf-lib/fontkit"), loadFontPack(pickFontPack(all, locale))]);
+  pdf.registerFontkit(fontkit);
+  const [regularBytes, boldBytes] = await Promise.all([subsetFont(pack.regular, all), subsetFont(pack.bold, all)]);
+  const face = fontkit.create(regularBytes);
+  for (const char of all) {
+    const codePoint = char.codePointAt(0) ?? 0;
+    if (codePoint > 32 && !face.hasGlyphForCodePoint(codePoint)) throw new UnsupportedTextError(char);
+  }
+  return {
+    regular: await pdf.embedFont(regularBytes, { subset: false, features: PLAIN_GLYPHS }),
+    bold: await pdf.embedFont(boldBytes, { subset: false, features: PLAIN_GLYPHS }),
+  };
 };
 
 export const buildInvoicePdf = async (invoice: Invoice, labels: InvoicePdfLabels, locale: string) => {
@@ -157,9 +211,7 @@ export const buildInvoicePdf = async (invoice: Invoice, labels: InvoicePdfLabels
   pdf.setTitle(`${invoice.title} ${invoice.number}`.trim());
   pdf.setProducer("ConvertLime");
   pdf.setCreator("ConvertLime Invoice Maker");
-  const regular = await pdf.embedFont(StandardFonts.Helvetica);
-  const bold = await pdf.embedFont(StandardFonts.HelveticaBold);
-  assertPrintable(regular, invoice, labels, locale);
+  const { regular, bold } = await embedFonts(pdf, collectStrings(invoice, labels, locale), locale);
   const ctx: Ctx = { pdf, page: pdf.addPage([PAGE.width, PAGE.height]), y: 0, regular, bold };
   const accent = invoice.accent;
   const accentColor = hexToRgb(accent);
@@ -200,7 +252,7 @@ export const buildInvoicePdf = async (invoice: Invoice, labels: InvoicePdfLabels
   for (const [label, value] of meta) {
     if (!value) continue;
     rightText(ctx, value, right, metaY, 9.5, bold);
-    rightText(ctx, label, right - bold.widthOfTextAtSize(value, 9.5) - 10, metaY, 9.5, regular, MUTED);
+    rightText(ctx, label, right - measure(bold, value, 9.5) - 10, metaY, 9.5, regular, MUTED);
     metaY -= 14;
   }
 
@@ -237,7 +289,7 @@ export const buildInvoicePdf = async (invoice: Invoice, labels: InvoicePdfLabels
       header();
     }
     lines.forEach((line, index) => text(ctx, line, MARGIN, ctx.y - index * 13, 10, regular));
-    rightText(ctx, String(item.quantity), cols.qty, ctx.y, 10, regular);
+    rightText(ctx, new Intl.NumberFormat(locale, { maximumFractionDigits: 3 }).format(item.quantity), cols.qty, ctx.y, 10, regular);
     rightText(ctx, money(item.rate), cols.rate, ctx.y, 10, regular);
     rightText(ctx, money(lineAmount(item)), cols.amount, ctx.y, 10, bold);
     ctx.y -= height;
@@ -258,10 +310,11 @@ export const buildInvoicePdf = async (invoice: Invoice, labels: InvoicePdfLabels
     ctx.y -= 16;
   }
   ctx.y -= 6;
-  ctx.page.drawRectangle({ x: labelX - 10, y: ctx.y - 12, width: right - labelX + 18, height: 30, color: accentColor });
-  text(ctx, labels.total, labelX, ctx.y, 11, bold, rgb(1, 1, 1));
-  rightText(ctx, money(totals.total), right, ctx.y, 13, bold, rgb(1, 1, 1));
-  ctx.y -= 34;
+  ctx.page.drawLine({ start: { x: labelX, y: ctx.y + 4 }, end: { x: right, y: ctx.y + 4 }, thickness: 1.5, color: accentColor });
+  ctx.y -= 18;
+  text(ctx, labels.total.toUpperCase(), labelX, ctx.y + 2, 8.5, bold, accentColor);
+  rightText(ctx, money(totals.total), right, ctx.y, 15, bold);
+  ctx.y -= 26;
   if (totals.paid) {
     text(ctx, labels.paid, labelX, ctx.y, 10, regular, MUTED);
     rightText(ctx, `-${money(totals.paid)}`, right, ctx.y, 10, regular);
@@ -285,6 +338,15 @@ export const buildInvoicePdf = async (invoice: Invoice, labels: InvoicePdfLabels
       text(ctx, line, MARGIN, ctx.y, 9.5, regular, MUTED);
       ctx.y -= 13;
     }
+  }
+
+  const pages = pdf.getPages();
+  if (pages.length > 1) {
+    pages.forEach((page, index) => {
+      const label = `${index + 1} / ${pages.length}`;
+      drawRun(page, invoice.number, MARGIN, 24, 8, regular, MUTED);
+      drawRun(page, label, right - measure(regular, label, 8), 24, 8, regular, MUTED);
+    });
   }
 
   return pdf.save();

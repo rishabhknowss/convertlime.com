@@ -18,7 +18,7 @@ type ItemsTableProps = {
 };
 
 const GRID =
-  "grid grid-cols-[4rem_minmax(0,1fr)_minmax(0,1fr)] items-start gap-x-3 gap-y-1.5 sm:grid-cols-[minmax(0,1fr)_4.5rem_7rem_7.5rem_1.5rem] sm:gap-y-0";
+  "grid grid-cols-[4rem_minmax(0,1fr)_minmax(0,1fr)] items-start gap-x-4 gap-y-1.5 sm:grid-cols-[minmax(0,1fr)_4rem_7.5rem_8rem] sm:gap-y-0";
 
 const Cell = ({ label, children }: { label: string; children: ReactNode }) => (
   <div className="min-w-0">
@@ -40,19 +40,18 @@ export const ItemsTable = ({ invoice, store, text, locale }: ItemsTableProps) =>
   return (
     <div>
       <div
-        className={`${GRID} max-sm:hidden rounded-lg bg-[color-mix(in_oklab,var(--inv-accent)_10%,transparent)] px-3 py-2 text-[10px] font-semibold tracking-[0.12em] text-[var(--inv-accent)] uppercase`}
+        className={`${GRID} max-sm:hidden rounded-lg bg-[color-mix(in_oklab,var(--inv-accent)_10%,transparent)] px-4 py-2.5 text-[10px] font-semibold tracking-[0.12em] text-[var(--inv-accent)] uppercase`}
       >
         <span>{text.description}</span>
         <span className="text-right">{text.quantity}</span>
         <span className="text-right">{text.rate}</span>
         <span className="text-right">{text.amount}</span>
-        <span />
       </div>
       <ul>
         {invoice.items.map((item, index) => (
           <li
             key={item.id}
-            className={`${GRID} group/row relative animate-in fade-in-0 slide-in-from-top-1 border-b border-dashed border-border/80 px-3 py-2.5 duration-200 last:border-solid`}
+            className={`${GRID} group/row relative animate-in fade-in-0 slide-in-from-top-1 border-b border-dashed border-border/80 px-4 py-3 duration-200 last:border-solid`}
           >
             <InlineTextarea
               ref={(element: HTMLTextAreaElement | null) => {
@@ -70,7 +69,7 @@ export const ItemsTable = ({ invoice, store, text, locale }: ItemsTableProps) =>
                   add();
                 }
               }}
-              className="col-span-3 text-sm font-medium text-foreground max-sm:pr-7 sm:col-span-1"
+              className="col-span-3 text-sm font-medium text-foreground max-sm:pr-7 sm:col-span-1 sm:pr-2"
             />
             <Cell label={text.quantity}>
               <NumberField
@@ -100,7 +99,7 @@ export const ItemsTable = ({ invoice, store, text, locale }: ItemsTableProps) =>
               type="button"
               aria-label={text.removeItem}
               onClick={() => store.removeItem(item.id)}
-              className="mt-0.5 flex size-5 items-center justify-center rounded-full max-sm:absolute max-sm:top-2.5 max-sm:right-3 text-muted-foreground opacity-0 transition group-hover/row:opacity-100 hover:bg-destructive/10 hover:text-destructive focus-visible:opacity-100 max-sm:opacity-60 print:hidden"
+              className="absolute top-3 right-4 flex size-5 items-center justify-center rounded-full sm:top-3.5 sm:-right-3 text-muted-foreground opacity-0 transition group-hover/row:opacity-100 hover:bg-destructive/10 hover:text-destructive focus-visible:opacity-100 max-sm:opacity-60 print:hidden"
             >
               <X className="size-3.5" />
             </button>
@@ -110,7 +109,7 @@ export const ItemsTable = ({ invoice, store, text, locale }: ItemsTableProps) =>
       <button
         type="button"
         onClick={add}
-        className="mt-3 inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-semibold text-[var(--inv-accent)] transition hover:bg-[color-mix(in_oklab,var(--inv-accent)_10%,transparent)] print:hidden"
+        className="mt-3 ml-1 inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-semibold text-[var(--inv-accent)] transition hover:bg-[color-mix(in_oklab,var(--inv-accent)_10%,transparent)] print:hidden"
       >
         <Plus className="size-3.5" />
         {text.addItem}

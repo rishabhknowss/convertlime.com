@@ -4,7 +4,7 @@ import { useRef } from "react";
 import { ImagePlus, X } from "lucide-react";
 import { toast } from "sonner";
 
-const MAX_SIDE = 480;
+const MAX_SIDE = 1600;
 
 const toPngDataUrl = (file: File) =>
   new Promise<string>((resolve, reject) => {
