@@ -1,7 +1,7 @@
 import { ImageResponse } from "next/og";
 import { OgCard } from "@/components/brand/og-card";
-import { getPost, getPosts } from "@/lib/blog";
-import { LOCALES, isLocale, type Locale } from "@/i18n/config";
+import { getPost } from "@/lib/blog";
+import { isLocale, type Locale } from "@/i18n/config";
 import { getDictionary } from "@/i18n/dictionaries";
 import { ogFontFamily, ogFonts } from "@/lib/og/fonts";
 
@@ -9,8 +9,8 @@ export const alt = "ConvertLime";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
-export const generateStaticParams = () =>
-  LOCALES.flatMap((lang) => getPosts(lang).map((post) => ({ lang, slug: post.slug })));
+// Rendered on first request and cached, so the build stays within the host's memory limit.
+export const generateStaticParams = () => [];
 
 const Image = async ({ params }: { params: Promise<{ lang: string; slug: string }> }) => {
   const { lang, slug } = await params;
