@@ -118,6 +118,7 @@ export const TOOLS: Tool[] = [
   convert("heic", "webp", "iphone"),
   convert("heif", "jpg", "iphone"),
   convert("heif", "png", "iphone"),
+  toPdf("heif", "iphone"),
   convert("avif", "jpg", "web", true),
   convert("avif", "png", "web", true),
   convert("avif", "webp", "web"),

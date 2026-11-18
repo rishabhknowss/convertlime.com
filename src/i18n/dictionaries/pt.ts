@@ -302,7 +302,11 @@ export const pt: Dictionary = {
     },
     keywords: (v) => {
       const keyword = shortKeyword(v);
-      return [heading(v).toLowerCase(), keyword, `${keyword} grátis`, `${keyword} online`];
+      const pair =
+        v.kind === "convert" || (v.kind === "to-pdf" && !v.imageToPdf)
+          ? [`converter ${v.from} em ${v.to}`, `transformar ${v.from} em ${v.to}`, `${v.from} em ${v.to}`].map((k) => k.toLowerCase())
+          : [];
+      return [heading(v).toLowerCase(), keyword, `${keyword} grátis`, `${keyword} online`, ...pair];
     },
     promises: ["Sem upload – tudo fica no seu aparelho", "Conversão em lote na hora", "Grátis, sem cadastro e sem marca d'água"],
     howToUse: (h) => `Passo a passo: ${h}`,

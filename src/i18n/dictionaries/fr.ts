@@ -307,7 +307,7 @@ export const fr: Dictionary = {
         return ["compresser image", "compresser une image", "réduire taille image", "compresser photo en ligne"];
       if (v.imageToPdf) return ["image en pdf", "convertir image en pdf", "photo en pdf", "image en pdf gratuit"];
       const pair = `${v.from} en ${v.to}`.toLowerCase();
-      return [`convertir ${pair}`, pair, `${pair} gratuit`, `convertisseur ${v.from.toLowerCase()} ${v.to.toLowerCase()}`];
+      return [`convertir ${pair}`, pair, `${pair} gratuit`, `convertisseur ${v.from.toLowerCase()} ${v.to.toLowerCase()}`, `${v.from} to ${v.to}`.toLowerCase()];
     },
     promises: [
       "Aucun envoi – tout reste sur votre appareil",
