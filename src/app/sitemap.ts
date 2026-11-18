@@ -5,7 +5,7 @@ import { getPosts, postLocales } from "@/lib/blog";
 import { LOCALES, LOCALE_META, type Locale } from "@/i18n/config";
 import { languageAlternates, pageUrl, toolLanguageAlternates, toolUrl } from "@/lib/seo";
 
-const LAST_UPDATED = "2026-10-29";
+const LAST_UPDATED = "2026-11-18";
 
 type Entry = MetadataRoute.Sitemap[number];
 

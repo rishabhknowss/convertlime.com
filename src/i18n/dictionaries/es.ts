@@ -316,7 +316,8 @@ export const es: Dictionary = {
     },
     keywords: (v) => {
       const keyword = searchKeyword(v);
-      return [keyword, heading(v).toLowerCase(), `${keyword} gratis`, `${keyword} online`];
+      const pair = v.kind === "convert" || (v.kind === "to-pdf" && !v.imageToPdf) ? [`de ${keyword}`, `${v.from} to ${v.to}`.toLowerCase()] : [];
+      return [keyword, heading(v).toLowerCase(), `${keyword} gratis`, `${keyword} online`, ...pair];
     },
     promises: ["Sin subir nada: todo queda en tu dispositivo", "Conversión al instante, por lotes", "Gratis, sin registro y sin marca de agua"],
     howToUse: (h) => `Cómo ${action(h)}`,

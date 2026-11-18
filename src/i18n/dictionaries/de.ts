@@ -303,7 +303,7 @@ export const de: Dictionary = {
         return [h, "bild verkleinern", "foto komprimieren", "bild online komprimieren", `${h} kostenlos`];
       const from = v.imageToPdf ? "bild" : v.from.toLowerCase();
       const to = v.to.toLowerCase();
-      return [h, `${from} in ${to}`, `${from} zu ${to}`, `${from} ${to} konvertieren`, `${h} kostenlos`, `${h} online`];
+      return [h, `${from} in ${to}`, `${from} zu ${to}`, `${from} to ${to}`, `${from} ${to} konvertieren`, `${h} kostenlos`, `${h} online`];
     },
     promises: [
       "Kein Upload – bleibt auf deinem Gerät",

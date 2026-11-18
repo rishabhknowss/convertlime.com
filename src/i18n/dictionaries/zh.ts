@@ -297,7 +297,7 @@ export const zh: Dictionary = {
       const h = heading(v).toLowerCase();
       if (v.kind === "compress") return [h, "在线压缩图片", "图片压缩 免费", "照片压缩"];
       if (v.kind === "resize-kb") return [h, `照片压缩到${v.kb}kb`, `图片${v.kb}kb以内`, `${h} 在线`];
-      return [h, `${h} 在线`, `${h} 免费`, `${h}工具`];
+      return [h, `${h} 在线`, `${h} 免费`, `${h}工具`, ...(v.kind === "convert" ? [`${v.from} to ${v.to}`.toLowerCase()] : [])];
     },
     promises: ["无需上传，文件留在本机", "即时批量转换", "免费，无需注册，不加水印"],
     howToUse: (h) => `如何使用${h}工具`,

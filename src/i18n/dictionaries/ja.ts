@@ -299,7 +299,7 @@ export const ja: Dictionary = {
       if (v.imageToPdf) return ["画像をPDFに変換", "画像 pdf 変換", "画像 pdf 変換 無料", "写真 pdf 変換"];
       const from = v.from.toLowerCase();
       const to = v.to.toLowerCase();
-      return [heading(v), `${from} ${to} 変換`, `${from} ${to} 変換 無料`, `${from} 変換`];
+      return [heading(v), `${from} ${to} 変換`, `${from} ${to} 変換 無料`, `${from} 変換`, `${from} to ${to}`];
     },
     promises: ["アップロード不要・端末内で完結", "すぐに一括変換", "無料・登録不要・透かしなし"],
     howToUse: (h) => `${h}する方法`,
