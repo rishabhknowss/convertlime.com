@@ -1,6 +1,10 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { DEFAULT_LOCALE, LOCALE_COOKIE, isLocale, type Locale } from "@/i18n/config";
 import { toolRedirect } from "@/data/tools";
+import { SITE } from "@/config/site";
+
+const CANONICAL_HOST = new URL(SITE.url).host;
+const BARE_HOST = CANONICAL_HOST.replace(/^www\./, "");
 
 const COUNTRY_LOCALE: Record<string, Locale> = {
   JP: "ja",
@@ -79,6 +83,9 @@ const preferredLocale = (request: NextRequest): Locale => {
 
 export const proxy = (request: NextRequest) => {
   const { pathname, search } = request.nextUrl;
+  const host = (request.headers.get("x-forwarded-host") ?? request.headers.get("host") ?? "").split(":")[0];
+  if (host === BARE_HOST) return NextResponse.redirect(`${SITE.url}${pathname}${search}`, 308);
+
   const [, first, second, ...rest] = pathname.split("/");
 
   const [locale, slug] = isLocale(first) ? [first, second] : [DEFAULT_LOCALE, first];
